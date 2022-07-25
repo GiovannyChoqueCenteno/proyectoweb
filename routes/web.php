@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\ConvocatoriaController;
 use App\Http\Controllers\CronogramaController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +21,33 @@ use App\Http\Controllers\CronogramaController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/prueba', function () {
+    return view('prueba');
+});
+
 Route::resource('periodo', PeriodoController::class);
 Route::resource('convocatoria', ConvocatoriaController::class);
 Route::resource('cronograma', CronogramaController::class );
 
 
-Auth::routes();
 
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
+// Routes
+
+Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/estudiante', function () {return view('estudiante.main');})->name('estudiante');
+    Route::get('/admin', function () {return view('admin.main');})->name('admin');
+    Route::get('/docente', function () {return view('docente.main');})->name('docente');
+    
+});
+
+Route::middleware(['guest'])->group(function () {
+    Route::get('login', [AuthController::class, 'login'])->name('login');
+});
