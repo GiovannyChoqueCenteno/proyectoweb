@@ -5,13 +5,14 @@
         <h3 class="font-bold">Lista de Convocatorias</h3>
     <div class="overflow-x-auto">
 
-        <table class="table table-bordered table-compact mx-auto sm:w-full px-5 my-5">
+        <table class="table table-bordered table-compact mx-auto w-10/12 lg:w-full px-5 my-5">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Titulo</th>
                     <th>Descripcion</th>
                     <th>Fecha</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,6 +30,9 @@
                         </td>
                         <td>
                             {{ $convocatoria->fecha }}
+                        </td>
+                        <td>
+                            <a href="" class="btn btn-secondary">Ver Solicitudes</a>
                         </td>
                     </tr>
                 @endforeach

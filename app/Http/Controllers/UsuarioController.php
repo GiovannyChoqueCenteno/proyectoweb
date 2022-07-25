@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ActividadModel;
-use App\Models\CronogramaModel;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 
-class CronogramaController extends Controller
+class UsuarioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class CronogramaController extends Controller
     public function index()
     {
         //
-        $cronogramas = CronogramaModel::all();
-        return view('cronograma.index' ,compact('cronogramas'));
+        $usuarios = Usuario::all();
+        return view('usuarios',compact('usuarios'));
     }
 
     /**
@@ -50,8 +49,6 @@ class CronogramaController extends Controller
     public function show($id)
     {
         //
-        $actividades = ActividadModel::where('idcronograma', $id)->get();
-        return view('cronograma.show', compact('actividades'));
     }
 
     /**

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ActividadModel;
-use App\Models\CronogramaModel;
+use App\Models\SolicitudModel;
 use Illuminate\Http\Request;
 
-class CronogramaController extends Controller
+class SolicitudController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class CronogramaController extends Controller
     public function index()
     {
         //
-        $cronogramas = CronogramaModel::all();
-        return view('cronograma.index' ,compact('cronogramas'));
+        $solicitudes = SolicitudModel::all();
+        return view('solicitud.index',compact('solicitudes'));
     }
 
     /**
@@ -50,8 +49,6 @@ class CronogramaController extends Controller
     public function show($id)
     {
         //
-        $actividades = ActividadModel::where('idcronograma', $id)->get();
-        return view('cronograma.show', compact('actividades'));
     }
 
     /**

@@ -6,7 +6,7 @@ use App\Models\ActividadModel;
 use App\Models\CronogramaModel;
 use Illuminate\Http\Request;
 
-class CronogramaController extends Controller
+class ActividadController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class CronogramaController extends Controller
     public function index()
     {
         //
-        $cronogramas = CronogramaModel::all();
-        return view('cronograma.index' ,compact('cronogramas'));
+        $actividades = ActividadModel::all();
+        return view('actividad.index' , compact('actividades'));
     }
 
     /**
@@ -28,6 +28,8 @@ class CronogramaController extends Controller
     public function create()
     {
         //
+        $cronogramas = CronogramaModel::all();
+        return view('actividad.create',compact('cronogramas'));
     }
 
     /**
@@ -39,7 +41,9 @@ class CronogramaController extends Controller
     public function store(Request $request)
     {
         //
-    }
+        ActividadModel::create($request->all());
+        return redirect()->route('actividad.index');
+        }
 
     /**
      * Display the specified resource.
@@ -51,7 +55,7 @@ class CronogramaController extends Controller
     {
         //
         $actividades = ActividadModel::where('idcronograma', $id)->get();
-        return view('cronograma.show', compact('actividades'));
+        return view('actividad.show', compact('actividades'));
     }
 
     /**

@@ -2,36 +2,31 @@
 
 @section('content')
     <main class="sm:container sm:mx-auto sm:mt-10">
-        <h3 class="font-bold">Lista de actividades</h3>
+        <h3 class="font-bold">Lista de grupos</h3>
 
         <table class="table table-bordered table-compact mx-auto w-10/12 lg:w-full px-5 my-5">
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Descripcion</th>
-                    <th>Fecha</th>
+                    <th>Nombre</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($actividades as $actividad)
+                @foreach ($grupos as $grupo)
                     <tr class="w-10">
                         <td>
-                            {{ $actividad->id }}
+                            {{ $grupo->id }}
                         </td>
                         <td>
-                            {{ $actividad->nombre }}
+                            {{ $grupo->nombre }}
                         </td>
-                        <td>
-                            {{ $actividad->fecha }}
-
-                        </td>
-
                     </tr>
                 @endforeach
             </tbody>
 
         </table>
-        <a href="{{route('cronograma.index')}}" class="btn btn-warning">Volver a la lista</a>
+        <a href="{{ route('grupo.create') }}" for="my-modal-3" class="btn btn-primary modal-button">Registrar
+            grupo</a>
 
         <!-- Put this part before </body> tag -->
 

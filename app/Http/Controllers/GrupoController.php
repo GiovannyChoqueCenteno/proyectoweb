@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ActividadModel;
-use App\Models\CronogramaModel;
+use App\Models\GrupoModel;
 use Illuminate\Http\Request;
 
-class CronogramaController extends Controller
+class GrupoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class CronogramaController extends Controller
     public function index()
     {
         //
-        $cronogramas = CronogramaModel::all();
-        return view('cronograma.index' ,compact('cronogramas'));
+        $grupos = GrupoModel::all();
+        return view('grupo.index', compact('grupos'));
     }
 
     /**
@@ -28,6 +27,7 @@ class CronogramaController extends Controller
     public function create()
     {
         //
+        return view('grupo.create');
     }
 
     /**
@@ -39,6 +39,8 @@ class CronogramaController extends Controller
     public function store(Request $request)
     {
         //
+        GrupoModel::create($request->all());
+        return redirect()->route('grupo.index');
     }
 
     /**
@@ -50,8 +52,6 @@ class CronogramaController extends Controller
     public function show($id)
     {
         //
-        $actividades = ActividadModel::where('idcronograma', $id)->get();
-        return view('cronograma.show', compact('actividades'));
     }
 
     /**

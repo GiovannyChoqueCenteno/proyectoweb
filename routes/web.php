@@ -1,9 +1,13 @@
 <?php
 
+use App\Http\Controllers\ActividadController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\ConvocatoriaController;
 use App\Http\Controllers\CronogramaController;
+use App\Http\Controllers\GrupoController;
+use App\Http\Controllers\MateriaController;
+use App\Http\Controllers\SolicitudController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +26,10 @@ Route::get('/', function () {
 Route::resource('periodo', PeriodoController::class);
 Route::resource('convocatoria', ConvocatoriaController::class);
 Route::resource('cronograma', CronogramaController::class );
-
+Route::resource('actividad', ActividadController::class);
+Route::resource('grupo',GrupoController::class);
+Route::resource('materia',MateriaController::class);
+Route::resource('solicitud',SolicitudController::class);
 
 Auth::routes();
 

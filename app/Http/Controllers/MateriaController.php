@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ActividadModel;
-use App\Models\CronogramaModel;
+use App\Models\MateriaModel;
 use Illuminate\Http\Request;
 
-class CronogramaController extends Controller
+class MateriaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class CronogramaController extends Controller
     public function index()
     {
         //
-        $cronogramas = CronogramaModel::all();
-        return view('cronograma.index' ,compact('cronogramas'));
+        $materias = MateriaModel::paginate(7);
+        return view('materia.index', compact('materias'));
     }
 
     /**
@@ -28,6 +27,7 @@ class CronogramaController extends Controller
     public function create()
     {
         //
+        return view('materia.create');
     }
 
     /**
@@ -50,8 +50,6 @@ class CronogramaController extends Controller
     public function show($id)
     {
         //
-        $actividades = ActividadModel::where('idcronograma', $id)->get();
-        return view('cronograma.show', compact('actividades'));
     }
 
     /**
