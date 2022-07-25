@@ -1,9 +1,9 @@
 <?php
+use Illuminate\Http\Request;
 
 namespace App\Http\Controllers;
 
 use App\Models\PeriodoModel;
-use Illuminate\Http\Request;
 
 class PeriodoController extends Controller
 {
@@ -91,5 +91,11 @@ class PeriodoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /*Add*/
+    public function showPeriodo(){
+        $periodos = PeriodoModel::all();
+        return view('periodo.list', compact('periodos'));
     }
 }

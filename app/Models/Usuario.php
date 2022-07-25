@@ -11,13 +11,22 @@ class Usuario extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $rememberTokenName = false;
+    protected $primaryKey = 'codigo';
+    protected $table = "usuario";
+    public $incrementing = false;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+<<<<<<< HEAD
         'nombre', 'apellido', 'email', 'password', 'idrol'
+=======
+        'codigo', 'nombre', 'apellido', 'pass', 'email', 'idrol'
+>>>>>>> origin/eduardo
     ];
 
     /**
@@ -26,15 +35,18 @@ class Usuario extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'pass'
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public $timestamps = false;
+
+    public function getRol()
+    {
+        if ($this->idrol == 1) {
+            return "admin";
+        } elseif ($this->idrol == 2) {
+            return "docente";
+        }
+        return "estudiante";
+    }
 }

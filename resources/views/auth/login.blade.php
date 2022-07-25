@@ -1,79 +1,53 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-<main class="sm:container sm:mx-auto sm:max-w-lg sm:mt-10">
-    <div class="flex">
-        <div class="w-full">
-            <section class="flex flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Prueba</title>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
-                <header class="font-semibold bg-gray-200 text-gray-700 py-5 px-6 sm:py-6 sm:px-8 sm:rounded-t-md">
-                    {{ __('Login') }}
-                </header>
+<body>
 
-                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="{{ route('login') }}">
-                    @csrf
-
-                    <div class="flex flex-wrap">
-                        <label for="email" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                            {{ __('E-Mail Address') }}:
-                        </label>
-
-                        <input id="email" type="email" class="form-input w-full @error('email') border-red-500 @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                        @error('email')
-                        <p class="text-red-500 text-xs italic mt-4">
-                            {{ $message }}
-                        </p>
-                        @enderror
-                    </div>
-
-                    <div class="flex flex-wrap">
-                        <label for="password" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                            {{ __('Password') }}:
-                        </label>
-
-                        <input id="password" type="password" class="form-input w-full @error('password') border-red-500 @enderror" name="password" required>
-
-                        @error('password')
-                        <p class="text-red-500 text-xs italic mt-4">
-                            {{ $message }}
-                        </p>
-                        @enderror
-                    </div>
-
-                    <div class="flex items-center">
-                        <label class="inline-flex items-center text-sm text-gray-700" for="remember">
-                            <input type="checkbox" name="remember" id="remember" class="form-checkbox" {{ old('remember') ? 'checked' : '' }}>
-                            <span class="ml-2">{{ __('Remember Me') }}</span>
-                        </label>
-
-                        @if (Route::has('password.request'))
-                        <a class="text-sm text-blue-500 hover:text-blue-700 whitespace-no-wrap no-underline hover:underline ml-auto" href="{{ route('password.request') }}">
-                            {{ __('Forgot Your Password?') }}
-                        </a>
-                        @endif
-                    </div>
-
-                    <div class="flex flex-wrap">
-                        <button type="submit" class="w-full select-none font-bold whitespace-no-wrap p-3 rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700 sm:py-4">
-                            {{ __('Login') }}
-                        </button>
-
-                        @if (Route::has('register'))
-                        <p class="w-full text-xs text-center text-gray-700 my-6 sm:text-sm sm:my-8">
-                            {{ __("Don't have an account?") }}
-                            <a class="text-blue-500 hover:text-blue-700 no-underline hover:underline" href="{{ route('register') }}">
-                                {{ __('Register') }}
-                            </a>
-                        </p>
-                        @endif
-                    </div>
-                </form>
-                <button class="btn btn-primary" data-set-theme="cupcake" data-act-class="ACTIVECLASS">cupcake</button>
-                <button class="btn btn-primary" data-set-theme="dark" data-act-class="ACTIVECLASS">Dark</button>
-                <button class="btn btn-primary" data-set-theme="retro" data-act-class="ACTIVECLASS">Retro</button>
-            </section>
-        </div>
+    <div class="flex items-center justify-center h-screen bg-gray-100">
+        <form method="POST" action="{{ route('authenticate') }}">
+            @csrf
+            <div class="bg-white w-96 p-6 rounded shadow-sm">
+                <h2 class="text-center">Login</h2>
+                <div class="my-4 form-control w-full max-w-xs">
+                    <label class="text-inherit">email</label>
+                    <input type="email" name="email" placeholder="ed@gmail.com"
+                        class="border-gray-300 input w-full rounded max-w-xs" required value="{{ old('email') }}" />
+                    @error('email')
+                        <div class="text-red-500">
+                            <div>
+                                <span>{{ $message }}</span>
+                            </div>
+                        </div>
+                    @enderror
+                </div>
+                <div class="my-4 form-control w-full max-w-xs">
+                    <label class="text-inherit">password</label>
+                    <input type="password" name="pass" placeholder="********"
+                        class="border-gray-300 input w-full rounded max-w-xs" required value="{{ old('pass') }}" />
+                    @error('pass')
+                        <div class="text-red-500">
+                            <div>
+                                <span>{{ $message }}</span>
+                            </div>
+                        </div>
+                    @enderror
+                </div>
+                <div class="my-4 form-control w-full max-w-xs my-2">
+                    <button class="w-full btn ">ingresar</button>
+                </div>
+            </div>
+        </form>
     </div>
-</main>
-@endsection
+
+</body>
+
+</html>
