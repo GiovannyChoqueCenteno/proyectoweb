@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\ConvocatoriaModel;
+use App\Models\MateriaModel;
+use App\Models\MateriaofertadaModel;
 use App\Models\PeriodoModel;
+use App\Models\SolicitudModel;
 use App\Models\Tipoconvocatoria;
+use App\Models\TipoconvocatoriaModel;
 use Illuminate\Http\Request;
 
 class ConvocatoriaController extends Controller
@@ -29,9 +33,10 @@ class ConvocatoriaController extends Controller
     public function create()
     {
         //
-        $tipoconvocatorias = Tipoconvocatoria::all();
+        $tipoconvocatorias = TipoconvocatoriaModel::all();
         $periodos = PeriodoModel::all();
-        return view('convocatoria.create', compact('tipoconvocatorias' , 'periodos'));
+        $materias = MateriaModel::all();
+        return view('convocatoria.create', compact('tipoconvocatorias' , 'periodos','materias'));
     }
 
     /**
@@ -42,9 +47,20 @@ class ConvocatoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $convocatoria = $request->all();
-        ConvocatoriaModel::create($convocatoria);
+        
+        $convocatoria = $request->except('materia');
+        $newConvocatoria =ConvocatoriaModel::create($convocatoria);
+        $materias = [];
+        for($i=0 ; $i<count($request->materia) ; $i++){            
+            array_push($materias,[
+                'idmateria' => $request->materia[$i],
+                'idconvocatoria'=> $newConvocatoria->id
+            ]);
+
+        }
+        MateriaofertadaModel::insert($materias);
+
+
         return redirect()->route('convocatoria.index');
 
     }
@@ -58,6 +74,8 @@ class ConvocatoriaController extends Controller
     public function show($id)
     {
         //
+        $solicitudes = SolicitudModel::select('solicitud.*' , 'materia.nombre')->join('materia','idmateria','=','materia.id')->where('idconvocatoria',$id)->get();
+        return view('convocatoria.show',compact('solicitudes'));
     }
 
     /**

@@ -32,7 +32,7 @@
                             {{ $convocatoria->fecha }}
                         </td>
                         <td>
-                            <a href="" class="btn btn-secondary">Ver Solicitudes</a>
+                            <a href="{{route('convocatoria.show',$convocatoria->id)}}" class="btn btn-secondary">Ver Solicitudes</a>
                         </td>
                     </tr>
                 @endforeach

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ConvocatoriaModel;
+use App\Models\MateriaModel;
 use App\Models\SolicitudModel;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 
 class SolicitudController extends Controller
@@ -27,6 +30,11 @@ class SolicitudController extends Controller
     public function create()
     {
         //
+
+        $estudiantes = Usuario::where('rolid',3)->get();
+        $convocatorias = ConvocatoriaModel::all();
+        $materias  = MateriaModel::all();
+        return view('solicitud.create',compact('estudiantes','convocatorias','materias'));
     }
 
     /**

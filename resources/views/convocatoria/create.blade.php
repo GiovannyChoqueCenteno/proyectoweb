@@ -36,6 +36,13 @@
                 @endforeach
               </select>
         </div>
+        <h3>Seleccionar Materias</h3>
+        <div class="form-control m-5 h-60 overflow-y-auto">
+            @foreach ($materias as $materia)
+            <label for="">{{$materia->nombre}}</label>
+                <input name="materia[]" value="{{$materia->id}}" type="checkbox">
+            @endforeach
+        </div>
         
         <button class="btn btn-primary" type="submit">Guardar</button>
         <a href="{{route('convocatoria.index')}}" class="btn btn-warning">Volver a la lista</a>
