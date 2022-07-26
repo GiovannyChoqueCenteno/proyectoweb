@@ -39,7 +39,8 @@
 
 
                 </div>
-                <div class="navbar-center hidden lg:flex">
+                
+                {{-- <div class="navbar-center hidden lg:flex">
                     <ul class="menu menu-horizontal p-0">
                         <li tabindex="0">
                             <a>
@@ -70,7 +71,8 @@
                         </li>
                         <li><a>Item 3</a></li>
                     </ul>
-                </div>
+                </div> --}}
+
                 <div class="navbar-end">
                     <div class="form-control">
                         <input type="text" placeholder="Search" class="input input-bordered" />

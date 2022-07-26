@@ -21,20 +21,19 @@
                     <div
                         class="p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-primary">
                         <i class="bi bi-house-door-fill"></i>
-                        <span class="text-[15px] ml-4 text-gray-200">Home</span>
+                        <a href="/estudiante"><span class="text-[15px] ml-4 text-gray-200">Home</span></a>
                     </div>
 
                     <hr class="my-4 text-gray-600">
-              
+
                     <div
                         class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-primary">
                         <i class="bi bi-box-arrow-in-right"></i>
-                        <span class="text-[15px] ml-4 text-gray-200">Logout</span>
+                        <a href="/emateriaspostuladas"><span class="text-[15px] ml-4 text-gray-200">Materias Postuladas</span></a>
                     </div>
 
                 </div>
             </div>
-
 
         </div>
     </aside>
@@ -44,6 +43,7 @@
             document.querySelector('#submenu').classList.toggle('hidden')
             document.querySelector('#arrow').classList.toggle('rotate-0')
         }
+
         function Openbar() {
             document.querySelector('.sidebar').classList.toggle('left-[-300px]')
         }

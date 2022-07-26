@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ConvocatoriaModel;
-use App\Models\PeriodoModel;
-use App\Models\Tipoconvocatoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ConvocatoriaController extends Controller
+class MateriaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +15,6 @@ class ConvocatoriaController extends Controller
     public function index()
     {
         //
-        $convocatorias = ConvocatoriaModel::all();
-        return view('convocatoria.index', compact('convocatorias'));
     }
 
     /**
@@ -30,9 +25,6 @@ class ConvocatoriaController extends Controller
     public function create()
     {
         //
-        $tipoconvocatorias = Tipoconvocatoria::all();
-        $periodos = PeriodoModel::all();
-        return view('convocatoria.create', compact('tipoconvocatorias', 'periodos'));
     }
 
     /**
@@ -44,9 +36,6 @@ class ConvocatoriaController extends Controller
     public function store(Request $request)
     {
         //
-        $convocatoria = $request->all();
-        ConvocatoriaModel::create($convocatoria);
-        return redirect()->route('convocatoria.index');
     }
 
     /**
@@ -93,10 +82,21 @@ class ConvocatoriaController extends Controller
     {
         //
     }
-
-    public function egetConvocatoriaByPeriodo($id)
+    // 
+    public function egetMateriaOfertada($id)
     {
-        $convocatorias = ConvocatoriaModel::where('idperiodo', $id)->get();
-        return view('convocatoria.elist', compact('convocatorias'));
+        $materias = DB::table('materia')
+            ->join('materiaofertada', 'materia.id', 'materiaofertada.idmateria')
+            ->join('convocatoria', 'materiaofertada.idconvocatoria', 'convocatoria.id')
+            ->join('examen', function ($join) {
+                $join->on('examen.idconvocatoria', '=', 'materiaofertada.idconvocatoria');
+                $join->on('examen.idmateria', '=', 'materiaofertada.idmateria');
+            })
+            ->join('usuario','examen.codigo','usuario.codigo')
+            ->where('convocatoria.id', $id)
+            ->select('materia.*','convocatoria.id as idconv','usuario.nombre as docenten','usuario.apellido as docentea')
+            ->get();
+
+        return view('materia.elistMateriaOfertada', compact('materias'));
     }
 }

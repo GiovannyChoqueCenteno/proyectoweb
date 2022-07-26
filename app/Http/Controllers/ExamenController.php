@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ConvocatoriaModel;
-use App\Models\PeriodoModel;
-use App\Models\Tipoconvocatoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class ConvocatoriaController extends Controller
+class ExamenController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +16,6 @@ class ConvocatoriaController extends Controller
     public function index()
     {
         //
-        $convocatorias = ConvocatoriaModel::all();
-        return view('convocatoria.index', compact('convocatorias'));
     }
 
     /**
@@ -30,9 +26,6 @@ class ConvocatoriaController extends Controller
     public function create()
     {
         //
-        $tipoconvocatorias = Tipoconvocatoria::all();
-        $periodos = PeriodoModel::all();
-        return view('convocatoria.create', compact('tipoconvocatorias', 'periodos'));
     }
 
     /**
@@ -44,9 +37,6 @@ class ConvocatoriaController extends Controller
     public function store(Request $request)
     {
         //
-        $convocatoria = $request->all();
-        ConvocatoriaModel::create($convocatoria);
-        return redirect()->route('convocatoria.index');
     }
 
     /**
@@ -94,9 +84,29 @@ class ConvocatoriaController extends Controller
         //
     }
 
-    public function egetConvocatoriaByPeriodo($id)
+    public function infoExamen($idmat, $idconv)
     {
-        $convocatorias = ConvocatoriaModel::where('idperiodo', $id)->get();
-        return view('convocatoria.elist', compact('convocatorias'));
+        $examenes = DB::table('examen')
+            ->where('idconvocatoria', $idconv)
+            ->where('idmateria', $idmat)
+            ->join('usuario', 'examen.codigo', 'usuario.codigo')
+            ->select('examen.*', 'usuario.nombre as docentenombre', 'usuario.apellido as docenteapellido')
+            ->get();
+
+        return view('examen.edetalle')
+            ->with('examenes', $examenes);
+    }
+    public function notaExamen($idmat, $idconv)
+    {
+        $estudiante = Auth::user();
+        $notas=DB::table('nota')
+             ->join('usuario','nota.codigodocente','usuario.codigo')
+             ->where('idmateria',$idmat)
+             ->where('idconvocatoria',$idconv)
+             ->where('codigoestudiante',$estudiante->codigo)
+             ->select('nota.*','usuario.nombre as docentenombre','usuario.apellido as docenteapellido')
+             ->get();
+
+        return view('estudiante.enotas')->with('notas',$notas);
     }
 }

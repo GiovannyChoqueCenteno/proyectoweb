@@ -1,40 +1,38 @@
 @extends('layouts.app')
 
 @section('content')
-
-<main class="sm:container sm:mx-auto sm:mt-10">
-<h3 class="font-bold">Lista de periodos</h3>
-<table class="table table-bordered table-compact mx-auto sm:w-full px-5 my-5">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Inicio</th>
-                <th>Fin</th>
-            </tr>
-        </thead>
-        <tbody>
-
-    @foreach ($periodos as $periodo)
-            <tr class="w-10">
-                <td>
-                    {{$periodo->id}}
-                </td>
-                <td>
-                    {{ $periodo->inicio}}
-                </td>
-<td>
-                    {{ $periodo->fin}}
-
-                </td>
-
+    <main class="sm:container sm:mx-auto sm:mt-10">
+        <h3 class="font-bold">Lista de periodos</h3>
+        <table class="table table-bordered table-compact mx-auto sm:w-full px-5 my-5">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Inicio</th>
+                    <th>Fin</th>
                 </tr>
-    @endforeach
-</tbody>
+            </thead>
+            <tbody>
 
-</table>
-<a href="{{route('periodo.create')}}" for="my-modal-3" class="btn btn-primary modal-button">Registrar Periodo</a>
+                @foreach ($periodos as $periodo)
+                    <tr class="w-10">
+                        <td>
+                            {{ $periodo->id }}
+                        </td>
+                        <td>
+                            {{ $periodo->inicio }}
+                        </td>
+                        <td>
+                            {{ $periodo->fin }}
+                        </td>
 
-<!-- Put this part before </body> tag -->
+                    </tr>
+                @endforeach
+            </tbody>
 
-</main>
+        </table>
+        <a href="{{ route('periodo.create') }}" for="my-modal-3" class="btn btn-primary modal-button">Registrar Periodo</a>
+
+        <!-- Put this part before </body> tag -->
+
+    </main>
 @endsection
