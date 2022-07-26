@@ -11,6 +11,7 @@ use App\Models\SolicitudModel;
 use App\Models\Tipoconvocatoria;
 use App\Models\TipoconvocatoriaModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ConvocatoriaController extends Controller
 {
@@ -27,6 +28,8 @@ class ConvocatoriaController extends Controller
         $pagina->visitas++;
         $pagina->save();
         return view('convocatoria.index',compact('convocatorias','pagina'));
+
+
     }
 
     /**
@@ -39,8 +42,10 @@ class ConvocatoriaController extends Controller
         //
         $tipoconvocatorias = TipoconvocatoriaModel::all();
         $periodos = PeriodoModel::all();
+
         $materias = MateriaModel::all();
         return view('convocatoria.create', compact('tipoconvocatorias' , 'periodos','materias'));
+
     }
 
     /**
@@ -66,7 +71,6 @@ class ConvocatoriaController extends Controller
 
 
         return redirect()->route('convocatoria.index');
-
     }
 
     /**
@@ -114,5 +118,11 @@ class ConvocatoriaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function egetConvocatoriaByPeriodo($id)
+    {
+        $convocatorias = ConvocatoriaModel::where('idperiodo', $id)->get();
+        return view('convocatoria.elist', compact('convocatorias'));
     }
 }

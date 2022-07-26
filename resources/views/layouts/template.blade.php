@@ -17,7 +17,7 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    
+
 </head>
 
 <body class="bg-prymary h-screen antialiased leading-none font-sans">
@@ -39,7 +39,8 @@
 
 
                 </div>
-                <div class="navbar-center hidden lg:flex">
+
+                {{-- <div class="navbar-center hidden lg:flex">
                     <ul class="menu menu-horizontal p-0">
                         <li tabindex="0">
                             <a>
@@ -70,7 +71,8 @@
                         </li>
                         <li><a>Item 3</a></li>
                     </ul>
-                </div>
+                </div> --}}
+
                 <div class="navbar-end">
                     <form action="{{route('pagina.index')}}" method="GET">
                     <div class="form-control">
@@ -98,17 +100,17 @@
                         <ul tabindex="0"
                             class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                             <li>
-                                <a class="justify-between">
+                                <a class="justify-between text-start">
                                     Profile
                                     <span class="badge">New</span>
                                 </a>
                             </li>
-                            <li><a>Settings</a></li>
+                            {{-- <li><a>Settings</a></li> --}}
                             {{-- <li><a h>Logout</a></li> --}}
                             <li>
-                                <form method="POST" action="{{ route('logout') }}">
+                                <form method="POST" action="{{ route('logout') }}" class="p-0">
                                     @csrf
-                                    <button>logout</button>
+                                    <button class="text-start p-2 pl-4 w-full">logout</button>
                                 </form>
                             </li>
                         </ul>

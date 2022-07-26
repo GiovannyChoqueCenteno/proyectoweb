@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MateriaModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MateriaController extends Controller
 {
@@ -15,8 +16,10 @@ class MateriaController extends Controller
     public function index()
     {
         //
+
         $materias = MateriaModel::paginate(7);
         return view('materia.index', compact('materias'));
+
     }
 
     /**
@@ -28,6 +31,7 @@ class MateriaController extends Controller
     {
         //
         return view('materia.create');
+
     }
 
     /**
@@ -85,4 +89,23 @@ class MateriaController extends Controller
     {
         //
     }
+
+    // 
+    public function egetMateriaOfertada($id)
+    {
+        $materias = DB::table('materia')
+            ->join('materiaofertada', 'materia.id', 'materiaofertada.idmateria')
+            ->join('convocatoria', 'materiaofertada.idconvocatoria', 'convocatoria.id')
+            ->join('examen', function ($join) {
+                $join->on('examen.idconvocatoria', '=', 'materiaofertada.idconvocatoria');
+                $join->on('examen.idmateria', '=', 'materiaofertada.idmateria');
+            })
+            ->join('usuario','examen.codigo','usuario.codigo')
+            ->where('convocatoria.id', $id)
+            ->select('materia.*','convocatoria.id as idconv','usuario.nombre as docenten','usuario.apellido as docentea')
+            ->get();
+
+        return view('materia.elistMateriaOfertada', compact('materias'));
+    }
+
 }

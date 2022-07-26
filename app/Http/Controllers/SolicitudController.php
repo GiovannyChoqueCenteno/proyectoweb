@@ -8,7 +8,10 @@ use App\Models\SolicitudModel;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 
-use function GuzzleHttp\Promise\all;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class SolicitudController extends Controller
 {
@@ -21,7 +24,8 @@ class SolicitudController extends Controller
     {
         //
         $solicitudes = SolicitudModel::select('solicitud.*' , 'materia.nombre')->join('materia','idmateria','=','materia.id')->paginate(7)  ;
-        return view('solicitud.index',compact('solicitudes'));;
+        return view('solicitud.index',compact('solicitudes'));
+
     }
 
     /**
@@ -37,6 +41,7 @@ class SolicitudController extends Controller
         $convocatorias = ConvocatoriaModel::all();
         $materias  = MateriaModel::all();
         return view('solicitud.create',compact('estudiantes','convocatorias','materias'));
+
     }
 
     /**
@@ -73,7 +78,6 @@ class SolicitudController extends Controller
         $solicitud = SolicitudModel::where('codigo',$codigo)->where('idmateria',$idmateria)->where('idconvocatoria',$idconvocatoria)->first();
         return view('solicitud.edit',compact('solicitud'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -81,6 +85,7 @@ class SolicitudController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request , $codigo,$idmateria,$idconvocatoria)
     {
         //
@@ -88,6 +93,7 @@ class SolicitudController extends Controller
         SolicitudModel::where('codigo',$codigo)->where('idmateria',$idmateria)->where('idconvocatoria',$idconvocatoria)->update($solicitudUpdate);
         return redirect()->route('solicitud.index');
     }
+  
 
     /**
      * Remove the specified resource from storage.
@@ -99,4 +105,56 @@ class SolicitudController extends Controller
     {
         //
     }
+
+
+
+    public function eSaveSolicitud(Request $request)
+    {
+        $request->validate([
+            'idmateria' => 'required',
+            'idconvocatoria' => 'required',
+            'cv' => 'required|mimes:pdf'
+        ]);
+        $idmateria = $request->input('idmateria');
+        $idconvocatoria = $request->input('idconvocatoria');
+        $codigoe = Auth::user()->codigo;
+
+        // Validar Si no mandos solicitud
+        $exist = DB::table('solicitud')
+            ->where('idmateria', $idmateria)
+            ->where('idconvocatoria', $idconvocatoria)
+            ->where('codigo', $codigoe)
+            ->first();
+
+        if ($exist) {
+            return back()->with('info', 'Ya existe una solicitud para esta materia!!!');
+        }
+
+        $namefile = time() . '.pdf';
+
+        $path = $request->file('cv')->storeAs('public', $namefile);
+
+        $solicitudcreada = SolicitudModel::create([
+            'codigo' => $codigoe,
+            'idmateria' => $idmateria,
+            'idconvocatoria' => $idconvocatoria,
+            'aceptado' => false,
+            'notaacumulada' => 0,
+            'notafinal' => 0,
+            'filecv' => $namefile
+        ]);
+
+        return redirect()->route('esolicitud.form', [
+            'idmat' => $idmateria,
+            'idconv' => $idconvocatoria
+        ])->with('info', 'La solicitud se envio correctamente!!!');
+    }
+
+    public function eFormSolicitud($idmat, $idconv)
+    {
+        return view('solicitud.eform')
+            ->with('idmateria', $idmat)
+            ->with('idconvocatoria', $idconv);
+    }
+
 }

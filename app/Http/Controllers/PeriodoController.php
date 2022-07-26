@@ -98,9 +98,8 @@ class PeriodoController extends Controller
         //
     }
 
-    /*Add*/
-    public function showPeriodo(){
+    public function eListPeriodo(){
         $periodos = PeriodoModel::all();
-        return view('periodo.list', compact('periodos'));
+        return view('periodo.elist', compact('periodos'));
     }
 }

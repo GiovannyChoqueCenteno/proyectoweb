@@ -9,6 +9,7 @@ class MateriaModel extends Model
 {
     use HasFactory;
     protected $table = 'materia';
-    protected $fillable = ['nombre' , 'sigla' , 'cargahoraria'];
+    protected $fillable = ['nombre', 'sigla', 'cargahoraria'];
+    public $timestamps = false;
 
 }
