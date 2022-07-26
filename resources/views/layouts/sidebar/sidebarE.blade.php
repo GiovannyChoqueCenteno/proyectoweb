@@ -18,19 +18,19 @@
 
                 <div>
 
-                    <div
+                    <a href="/estudiante"
                         class="p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-primary">
                         <i class="bi bi-house-door-fill"></i>
-                        <a href="/estudiante"><span class="text-[15px] ml-4 text-gray-200">Home</span></a>
-                    </div>
+                        <small class="ml-2">Home</small>
+                    </a>
 
                     <hr class="my-4 text-gray-600">
 
-                    <div
+                    <a href="/emateriaspostuladas"
                         class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-primary">
                         <i class="bi bi-box-arrow-in-right"></i>
-                        <a href="/emateriaspostuladas"><span class="text-[15px] ml-4 text-gray-200">Materias Postuladas</span></a>
-                    </div>
+                        <small class="ml-2">Materias Postuladas</small>
+                    </a>
 
                 </div>
             </div>
