@@ -72,9 +72,11 @@
                     </ul>
                 </div>
                 <div class="navbar-end">
+                    <form action="{{route('pagina.index')}}" method="GET">
                     <div class="form-control">
-                        <input type="text" placeholder="Search" class="input input-bordered" />
+                        <input type="text" placeholder="Search" name="titulo" class="input input-bordered" />
                     </div>
+                </form>
 
                     <div class="dropdown dropdown-end mx-3">
                         <select class="select" data-choose-theme>

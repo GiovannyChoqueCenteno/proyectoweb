@@ -10,4 +10,6 @@ class SolicitudModel extends Model
     use HasFactory;
     protected $table = 'solicitud';
     protected $fillable = ['codigo' , 'idmateria' , 'idconvocatoria', 'aceptado' , 'notaacumulada','notafinal'];
+    public $timestamps = false;
+
 }

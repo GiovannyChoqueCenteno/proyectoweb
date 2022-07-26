@@ -2,15 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ConvocatoriaModel;
-use App\Models\MateriaModel;
-use App\Models\SolicitudModel;
-use App\Models\Usuario;
+use App\Models\ExamenModel;
 use Illuminate\Http\Request;
 
-use function GuzzleHttp\Promise\all;
-
-class SolicitudController extends Controller
+class ExamenController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +15,6 @@ class SolicitudController extends Controller
     public function index()
     {
         //
-        $solicitudes = SolicitudModel::select('solicitud.*' , 'materia.nombre')->join('materia','idmateria','=','materia.id')->paginate(7)  ;
-        return view('solicitud.index',compact('solicitudes'));;
     }
 
     /**
@@ -32,11 +25,6 @@ class SolicitudController extends Controller
     public function create()
     {
         //
-
-        $estudiantes = Usuario::where('rolid',3)->get();
-        $convocatorias = ConvocatoriaModel::all();
-        $materias  = MateriaModel::all();
-        return view('solicitud.create',compact('estudiantes','convocatorias','materias'));
     }
 
     /**
@@ -48,6 +36,9 @@ class SolicitudController extends Controller
     public function store(Request $request)
     {
         //
+        $examen  = $request->all();
+        ExamenModel::create($examen);
+        return redirect()->route('materiaofertada.index');
     }
 
     /**
@@ -67,11 +58,9 @@ class SolicitudController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($codigo,$idmateria,$idconvocatoria)
+    public function edit($id)
     {
         //
-        $solicitud = SolicitudModel::where('codigo',$codigo)->where('idmateria',$idmateria)->where('idconvocatoria',$idconvocatoria)->first();
-        return view('solicitud.edit',compact('solicitud'));
     }
 
     /**
@@ -81,12 +70,9 @@ class SolicitudController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request , $codigo,$idmateria,$idconvocatoria)
+    public function update(Request $request, $id)
     {
         //
-        $solicitudUpdate = $request->except('_token','_method');
-        SolicitudModel::where('codigo',$codigo)->where('idmateria',$idmateria)->where('idconvocatoria',$idconvocatoria)->update($solicitudUpdate);
-        return redirect()->route('solicitud.index');
     }
 
     /**

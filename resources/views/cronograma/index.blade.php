@@ -42,3 +42,10 @@
 
     </main>
 @endsection
+
+@section('footer')
+    <div>
+        <h5> Total de vistas : {{$pagina->visitas}}</h5>
+    </div>
+
+@endsection

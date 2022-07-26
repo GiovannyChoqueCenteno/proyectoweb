@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ActividadModel;
 use App\Models\CronogramaModel;
+use App\Models\PaginaModel;
 use Illuminate\Http\Request;
 
 class CronogramaController extends Controller
@@ -17,7 +18,10 @@ class CronogramaController extends Controller
     {
         //
         $cronogramas = CronogramaModel::all();
-        return view('cronograma.index' ,compact('cronogramas'));
+        $pagina =PaginaModel::find(2);
+        $pagina->visitas++;
+        $pagina->save();
+        return view('cronograma.index' ,compact('cronogramas' , 'pagina'));
     }
 
     /**

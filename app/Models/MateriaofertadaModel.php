@@ -8,10 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class MateriaofertadaModel extends Model
 {
     use HasFactory;
-    protected $primaryKey = ['idmateria','idconvocatoria'];
-
     protected $table = 'materiaofertada';
-    protected $fillable = [ 'idmateria' ,'idconvocatoria'];
+    //protected $primaryKey = ['idmateria','idconvocatoria'];
+    protected $fillable = ['idmateria' ,'idconvocatoria'];
     public $timestamps = false;
 
 }

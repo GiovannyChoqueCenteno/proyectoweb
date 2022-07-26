@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.template')
 
 @section('content')
     <main class="sm:container sm:mx-auto sm:mt-10">
@@ -47,4 +47,11 @@
         <!-- Put this part before </body> tag -->
 
     </main>
+@endsection
+
+@section('footer')
+    <div>
+        <h5> Total de vistas : {{$pagina->visitas}}</h5>
+    </div>
+
 @endsection

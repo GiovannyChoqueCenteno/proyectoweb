@@ -3,7 +3,9 @@ use Illuminate\Http\Request;
 
 namespace App\Http\Controllers;
 
+use App\Models\PaginaModel;
 use App\Models\PeriodoModel;
+use Illuminate\Http\Request;
 
 class PeriodoController extends Controller
 {
@@ -16,7 +18,10 @@ class PeriodoController extends Controller
     {
         //
         $periodos = PeriodoModel::all();
-        return view('periodo.index', compact('periodos'));
+        $pagina =PaginaModel::find(1);
+        $pagina->visitas++;
+        $pagina->save();
+        return view('periodo.index', compact('periodos', 'pagina'));
     }
 
     /**

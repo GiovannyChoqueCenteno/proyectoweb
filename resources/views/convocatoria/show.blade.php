@@ -49,6 +49,7 @@
             </tbody>
 
         </table>
+        {{$solicitudes->links()}}
         <a href="{{route('convocatoria.index')}}" class="btn btn-warning">Volver a la lista</a>
 
         <!-- Put this part before </body> tag -->

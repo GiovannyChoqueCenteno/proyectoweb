@@ -18,7 +18,7 @@
 
 </head>
 
-<body class="bg-prymary h-screen antialiased leading-none font-sans">
+<body class="bg-prymary flex flex-col h-screen antialiased justify-between leading-none font-sans">
     <div id="app">
         <header>
             <div class="navbar bg-base-100">
@@ -71,9 +71,11 @@
                   </ul>
                 </div>
                 <div class="navbar-end">
+                  <form action="{{route('pagina.index')}}" method="GET">
                     <div class="form-control">
-                        <input type="text" placeholder="Search" class="input input-bordered" />
-                      </div>
+                        <input type="text" placeholder="Search" name="titulo" class="input input-bordered" />
+                    </div>
+                </form>
                     <div class="dropdown dropdown-end">
                   
                         <label tabindex="0" class="btn btn-ghost btn-circle avatar">
@@ -176,7 +178,10 @@
         @yield('content')
     </div>
     <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
- 
-</body>
+    <footer class="footer footer-center p-4 bg-base-300 text-base-content">
+      @yield('footer')
+    </footer>
+
+  </body>
   
 </html>

@@ -2,17 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ConvocatoriaModel;
 use App\Models\MateriaModel;
 use App\Models\MateriaofertadaModel;
-use App\Models\PaginaModel;
-use App\Models\PeriodoModel;
-use App\Models\SolicitudModel;
-use App\Models\Tipoconvocatoria;
-use App\Models\TipoconvocatoriaModel;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 
-class ConvocatoriaController extends Controller
+class MateriaofertadaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,11 +17,9 @@ class ConvocatoriaController extends Controller
     public function index()
     {
         //
-        $convocatorias = ConvocatoriaModel::all();
-        $pagina =PaginaModel::find(3);
-        $pagina->visitas++;
-        $pagina->save();
-        return view('convocatoria.index',compact('convocatorias','pagina'));
+        $materiaofertadas = MateriaofertadaModel::select('materiaofertada.*' , 'materia.nombre' ,'convocatoria.fecha')->join('materia','idmateria','=','materia.id')
+        ->join('convocatoria','idconvocatoria','=','convocatoria.id')->orderBy('fecha','desc')->paginate(7)  ;
+        return view('materiaofertada.index' ,compact('materiaofertadas'));
     }
 
     /**
@@ -37,10 +30,6 @@ class ConvocatoriaController extends Controller
     public function create()
     {
         //
-        $tipoconvocatorias = TipoconvocatoriaModel::all();
-        $periodos = PeriodoModel::all();
-        $materias = MateriaModel::all();
-        return view('convocatoria.create', compact('tipoconvocatorias' , 'periodos','materias'));
     }
 
     /**
@@ -51,22 +40,7 @@ class ConvocatoriaController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $convocatoria = $request->except('materia');
-        $newConvocatoria =ConvocatoriaModel::create($convocatoria);
-        $materias = [];
-        for($i=0 ; $i<count($request->materia) ; $i++){            
-            array_push($materias,[
-                'idmateria' => $request->materia[$i],
-                'idconvocatoria'=> $newConvocatoria->id
-            ]);
-
-        }
-        MateriaofertadaModel::insert($materias);
-
-
-        return redirect()->route('convocatoria.index');
-
+        //
     }
 
     /**
@@ -78,8 +52,6 @@ class ConvocatoriaController extends Controller
     public function show($id)
     {
         //
-        $solicitudes = SolicitudModel::select('solicitud.*' , 'materia.nombre')->join('materia','idmateria','=','materia.id')->where('idconvocatoria',$id)->paginate(7);
-        return view('convocatoria.show',compact('solicitudes'));
     }
 
     /**
@@ -88,9 +60,12 @@ class ConvocatoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($idmateria,$idconvocatoria)
     {
         //
+        $materiaofertada = MateriaofertadaModel::where("idmateria",$idmateria)->where('idconvocatoria', $idconvocatoria)->first();
+        $docentes = Usuario::where('idrol' ,2)->get();
+        return view('materiaofertada.edit',compact('materiaofertada','docentes'));
     }
 
     /**

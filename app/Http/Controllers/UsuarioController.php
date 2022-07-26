@@ -16,7 +16,7 @@ class UsuarioController extends Controller
     {
         //
         $usuarios = Usuario::all();
-        return view('usuarios',compact('usuarios'));
+        return view('usuario.index',compact('usuarios'));
     }
 
     /**
@@ -38,6 +38,7 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         //
+    
     }
 
     /**

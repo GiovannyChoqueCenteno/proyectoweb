@@ -4,11 +4,11 @@
 
 <main class="sm:container sm:mx-auto sm:mt-10">
     <h3 class="text-lg font-bold">Registrar periodo</h3>
-    <form  action="{{route('periodo.store')}}" method="POST">
+    <form  action="{{route('solicitud.update')}}" method="POST">
         @csrf
         <div class="form-control bordered m-5">
-            <label class="label" for="inicio">Inicio del Perido</label>
-            <input type="text" id="inicio" name="inicio" placeholder="Inicio del periodo" class="input outline outline-1">
+            <label class="label" for="codigo">Codigo del Estudiante</label>
+            <input type="text" value="{{$solicitud->codigo}}" id="codigo" name="codigo" placeholder="Codigo del estudiante" class="input outline outline-1">
         </div>
         <div class="form-control m-5">
             <label class="label" for="fin">Fin del Perido</label>
