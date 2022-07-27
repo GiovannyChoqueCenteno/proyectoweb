@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -56,5 +57,20 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('login');
+    }
+
+    public function graph()
+    {
+        $data = DB::table('pagina')->get();
+        $titulos = [];
+        $visitas = [];
+        foreach ($data as $item) {
+            array_push($titulos, $item->titulo);
+            array_push($visitas, $item->visitas);
+        }
+        $titulos = json_encode($titulos);
+        $visitas = json_encode($visitas);
+        return view('visitas.graph')->with('titulos', $titulos)
+            ->with('visitas', $visitas);
     }
 }

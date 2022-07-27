@@ -121,9 +121,9 @@ class DocenteController extends Controller
             ->join('materia', 'materiagrupo.idmateria', 'materia.id')
             ->join('grupo', 'materiagrupo.idgrupo', 'grupo.id')
             ->where('docentemateriagrupoperiodo.codigo', $docente->codigo)
-            ->select('materia.nombre as materia', 'grupo.nombre as grupo', 'usuario.*','periodo.inicio as pinicio','periodo.fin as pfin')
+            ->select('materia.nombre as materia', 'grupo.nombre as grupo', 'usuario.*', 'periodo.inicio as pinicio', 'periodo.fin as pfin')
             ->get();
 
-        return view('docente.misauxiliares')->with('auxiliares',$auxiliares);
+        return view('docente.misauxiliares')->with('auxiliares', $auxiliares);
     }
 }
