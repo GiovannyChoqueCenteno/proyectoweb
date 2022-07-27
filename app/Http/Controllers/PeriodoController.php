@@ -32,7 +32,10 @@ class PeriodoController extends Controller
     public function create()
     {
         //
-        return view('periodo.create');
+        $pagina = PaginaModel::find(8);
+        $pagina->visitas++;
+        $pagina->save();
+        return view('periodo.create',compact('pagina'));
     }
 
     /**

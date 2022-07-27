@@ -82,7 +82,7 @@ class ConvocatoriaController extends Controller
     public function show($id)
     {
         //
-        $solicitudes = SolicitudModel::select('solicitud.*' , 'materia.nombre')->join('materia','idmateria','=','materia.id')->where('idconvocatoria',$id)->paginate(7);
+        $solicitudes = SolicitudModel::select('solicitud.*' , 'materia.nombre' , 'solicitud.codigo')->join('materia','idmateria','=','materia.id')->where('idconvocatoria',$id)->paginate(7);
         return view('convocatoria.show',compact('solicitudes'));
     }
 

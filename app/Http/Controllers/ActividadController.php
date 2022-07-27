@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ActividadModel;
 use App\Models\CronogramaModel;
+use App\Models\PaginaModel;
 use Illuminate\Http\Request;
 
 class ActividadController extends Controller
@@ -17,7 +18,10 @@ class ActividadController extends Controller
     {
         //
         $actividades = ActividadModel::all();
-        return view('actividad.index' , compact('actividades'));
+        $pagina = PaginaModel::find(4);
+        $pagina->visitas++;
+        $pagina->save();
+        return view('actividad.index' , compact('actividades', 'pagina'));
     }
 
     /**

@@ -1,13 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.template')
 
 @section('content')
-    <main class="sm:container sm:mx-auto sm:mt-10">
+    <main class="z-0 sm:container sm:mx-auto sm:mt-10">
         <h3 class="font-bold">Lista de solicitudes</h3>
 
-        <table class="table table-bordered table-compact mx-auto w-10/12 lg:w-full px-5 my-5">
+        <table class="z-0 table table-bordered table-compact mx-auto w-10/12 lg:w-full px-5 my-5">
             <thead>
                 <tr>
                     <th>Codigo de estudiante</th>
+                    <th>Codigo 2</th>
                     <th>Materia</th>
                     <th>Estado</th>
                     <th>Nota Acumulada</th>
@@ -19,6 +20,7 @@
 
                 @foreach ($solicitudes as $solicitud)
                     <tr class="w-10">
+                        
                         <td>
                             {{ $solicitud->codigo }}
                         </td>

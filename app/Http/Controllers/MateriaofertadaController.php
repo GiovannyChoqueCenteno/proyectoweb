@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MateriaModel;
 use App\Models\MateriaofertadaModel;
+use App\Models\PaginaModel;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,10 @@ class MateriaofertadaController extends Controller
         //
         $materiaofertadas = MateriaofertadaModel::select('materiaofertada.*' , 'materia.nombre' ,'convocatoria.fecha')->join('materia','idmateria','=','materia.id')
         ->join('convocatoria','idconvocatoria','=','convocatoria.id')->orderBy('fecha','desc')->paginate(7)  ;
-        return view('materiaofertada.index' ,compact('materiaofertadas'));
+        $pagina = PaginaModel::find(6);
+        $pagina->visitas++;
+        $pagina->save();
+        return view('materiaofertada.index' ,compact('materiaofertadas','pagina'));
     }
 
     /**

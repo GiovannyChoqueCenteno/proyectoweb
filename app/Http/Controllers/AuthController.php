@@ -35,7 +35,7 @@ class AuthController extends Controller
 
         if (Hash::check($request->input('pass'), $usuario->pass)) {
             Auth::login($usuario);
-            $redirect = "/admin";
+            $redirect = "/admin/periodo";
             $request->session()->regenerate();
             if ($usuario->idrol == 2) {
                 $redirect = "/docente";

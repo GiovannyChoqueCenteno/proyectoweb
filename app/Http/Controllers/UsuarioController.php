@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RolModel;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class UsuarioController extends Controller
     public function index()
     {
         //
-        $usuarios = Usuario::all();
+        $usuarios = Usuario::paginate(7);
         return view('usuario.index',compact('usuarios'));
     }
 
@@ -27,6 +28,8 @@ class UsuarioController extends Controller
     public function create()
     {
         //
+        $roles = RolModel::all();
+        return view('usuario.create',compact('roles'));
     }
 
     /**
@@ -38,6 +41,8 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         //
+        Usuario::create($request->all());
+        return redirect()->route('usuario.index');
     
     }
 

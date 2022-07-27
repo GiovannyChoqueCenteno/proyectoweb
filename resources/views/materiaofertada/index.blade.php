@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.template')
 
 @section('content')
-    <main class="sm:container sm:mx-auto sm:mt-10">
-        <h3 class="font-bold">Lista de materiaofertadas</h3>
-        <table class="table table-bordered table-compact mx-auto w-10/12 lg:w-full px-5 my-5">
+    <main class="z-0 sm:container sm:mx-auto sm:mt-10">
+        <h3 class="font-bold">Lista de Materias Ofertadas</h3>
+        <table class="z-0 table table-bordered table-compact mx-auto w-10/12 lg:w-full px-5 my-5">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -23,6 +23,7 @@
                         <td>
                             {{ $materiaofertada->nombre }}
                         </td>
+                       
                         <td>
                             {{ $materiaofertada->idconvocatoria }}
 
@@ -31,7 +32,7 @@
                             {{$materiaofertada->fecha}}
                         </td>
                         <td>
-                            <a href="{{route('materiaofertada.edit',["idconvocatoria"=>$materiaofertada->idconvocatoria, "idmateria"=> $materiaofertada->idmateria])}}" class="btn btn-primary">Asignar Examen</a>
+                            <a href="{{route('materiaofertada.edit',["idconvocatoria"=>$materiaofertada->idconvocatoria, "idmateria"=> $materiaofertada->idmateria])}}" class="btn btn-primary">Editar Examen</a>
                         </td>
                     </tr>
                 @endforeach

@@ -20,7 +20,7 @@
 
 </head>
 
-<body class="bg-prymary h-screen antialiased leading-none font-sans">
+<body class="bg-prymary flex flex-col justify-between h-screen antialiased leading-none font-sans">
     <div id="app">
         <header>
             <div class="navbar bg-base-100">
@@ -39,39 +39,6 @@
 
 
                 </div>
-
-                {{-- <div class="navbar-center hidden lg:flex">
-                    <ul class="menu menu-horizontal p-0">
-                        <li tabindex="0">
-                            <a>
-                                Cronograma
-                                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20"
-                                    height="20" viewBox="0 0 24 24">
-                                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-                                </svg>
-                            </a>
-                            <ul class="p-2">
-                                <li><a href="{{ route('periodo.index') }}">Periodo</a></li>
-                                <li><a href="{{ route('convocatoria.index') }}">Convocatoria</a></li>
-                                <li><a href="{{ route('cronograma.index') }}">Cronograma</a></li>
-                            </ul>
-                        </li>
-                        <li tabindex="0">
-                            <a>
-                                Parent
-                                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20"
-                                    height="20" viewBox="0 0 24 24">
-                                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-                                </svg>
-                            </a>
-                            <ul class="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
-                            </ul>
-                        </li>
-                        <li><a>Item 3</a></li>
-                    </ul>
-                </div> --}}
 
                 <div class="navbar-end">
                     <form action="{{route('pagina.index')}}" method="GET">
@@ -123,7 +90,7 @@
 
         @if (Auth::check())
             @if (Auth::user()->getRol() == 'admin')
-                @include('layouts.sidebar.sidebarA')
+            @include('layouts.sidebar.sidebarA')
             @elseif(Auth::user()->getRol() == 'docente')
                 @include('layouts.sidebar.sidebarD')
             @else
@@ -132,7 +99,12 @@
         @endif
         @yield('content')
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
+    {{-- <footer class="footer footer-center p-4 bg-base-300 text-base-content">
+        <div>
+            <h5> Total de vistas : {{$pagina->visitas}}</h5>
+        </div>    
+      </footer> --}}
+      <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
 </body>
 
 </html>

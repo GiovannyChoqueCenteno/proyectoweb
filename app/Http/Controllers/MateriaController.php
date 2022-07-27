@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MateriaModel;
+use App\Models\PaginaModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +19,10 @@ class MateriaController extends Controller
         //
 
         $materias = MateriaModel::paginate(7);
-        return view('materia.index', compact('materias'));
+        $pagina = PaginaModel::find(5);
+        $pagina->visitas++;
+        $pagina->save();
+        return view('materia.index', compact('materias','pagina'));
 
     }
 
@@ -43,6 +47,9 @@ class MateriaController extends Controller
     public function store(Request $request)
     {
         //
+        $materia = $request->all();
+        MateriaModel::create($materia);
+        return redirect()->route('materia.index');
     }
 
     /**
@@ -65,6 +72,8 @@ class MateriaController extends Controller
     public function edit($id)
     {
         //
+        $materia = MateriaModel::find($id);
+        return  view('materia.edit',compact('materia'));
     }
 
     /**
@@ -77,6 +86,9 @@ class MateriaController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $data = $request->except('_token','_method');
+        DB::table('materia')->where('id', $id)->update($data);
+        return redirect()->route('materia.index');
     }
 
     /**

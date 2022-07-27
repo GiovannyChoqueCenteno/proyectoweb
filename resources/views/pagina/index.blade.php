@@ -1,7 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.template')
 
 @section('content')
     <main class="sm:container  sm:mx-auto sm:mt-10">
+      <h3 class="text-bold mb-4">Resultados para  : {{$titulo}}</h3>
      @foreach ($paginas as $pagina)
      <div class="card w-96 bg-primary text-primary-content mb-5">
         <div class="card-body">

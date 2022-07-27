@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.template')
 
 @section('content')
 
@@ -17,11 +17,11 @@
         </div>
         <div class="form-control bordered m-5">
             <label class="label" for="fecha">Fecha del examen</label>
-            <input type="date"  id="fecha" name="fecha" placeholder="Fecha del examen" class="input outline outline-1">
+            <input type="date" id="fecha" name="fecha" placeholder="Fecha del examen" class="input outline outline-1">
         </div>
         <div class="form-control bordered m-5">
             <label class="label" for="hora">Hora del examen</label>
-            <input type="time"  id="hora" name="hora" placeholder="Hora del examen" class="input outline outline-1">
+            <input type="time"   id="hora" name="hora" placeholder="Hora del examen" class="input outline outline-1">
         </div>
         <div class="form-control bordered m-5">
             <label for="lugar" class="label">Lugar</label>
@@ -29,7 +29,7 @@
         </div>
         <div class="form-control bordered m-5">
             <label for="codigo" class="label">Docente</label>
-            <select class="select" name="codigo">
+            <select class="select"  name="codigo">
                 <option disabled selected>Seleccionar el docente</option>
                 @foreach ($docentes as $docente)
                 <option value="{{$docente->codigo}}"> {{$docente->nombre}}</option>                    

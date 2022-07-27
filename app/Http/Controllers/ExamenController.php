@@ -41,9 +41,9 @@ class ExamenController extends Controller
     public function store(Request $request)
     {
         //
-        $examen  = $request->all();
-        ExamenModel::create($examen);
-        return redirect()->route('materiaofertada.index');
+        // $examen  = $request->all();
+        // ExamenModel::update($examen)->where('idmateria',$examen->idmateria)->where('');
+        // return redirect()->route('materiaofertada.index');
 
     }
 

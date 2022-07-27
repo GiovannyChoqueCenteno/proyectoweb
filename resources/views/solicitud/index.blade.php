@@ -20,8 +20,9 @@
                 @foreach ($solicitudes as $solicitud)
                     <tr class="w-10">
                         <td>
-                            {{ $solicitud->codigo }}
+                            {{$solicitud->codigo}}
                         </td>
+                    
                         <td>
                             {{$solicitud->nombre}}
                         </td>

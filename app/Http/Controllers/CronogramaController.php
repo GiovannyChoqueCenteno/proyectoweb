@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\ActividadModel;
 use App\Models\CronogramaModel;
 use App\Models\PaginaModel;
+use App\Models\PeriodoModel;
+use App\Models\TipoconvocatoriaModel;
 use Illuminate\Http\Request;
 
 class CronogramaController extends Controller
@@ -32,6 +34,13 @@ class CronogramaController extends Controller
     public function create()
     {
         //
+
+        $tipoconvocatorias = TipoconvocatoriaModel::all();
+        $periodos = PeriodoModel::all();
+        $pagina = PaginaModel::find(7);
+        $pagina->visitas++;
+        $pagina->save();
+        return view('cronograma.create',compact('tipoconvocatorias','periodos','pagina'));
     }
 
     /**

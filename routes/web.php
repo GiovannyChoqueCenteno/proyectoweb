@@ -41,21 +41,7 @@ Route::get('/prueba', function () {
     return view('prueba');
 });
 
-Route::resource('periodo', PeriodoController::class);
-Route::resource('convocatoria', ConvocatoriaController::class);
-Route::resource('cronograma', CronogramaController::class );
-Route::resource('actividad', ActividadController::class);
-Route::resource('grupo',GrupoController::class);
-Route::resource('materia',MateriaController::class);
-Route::resource('solicitud',SolicitudController::class,['only'=>['index','create','store']]);
-Route::get('solicitud/{codigo}/{idmateria}/{idconvocatoria}', [SolicitudController::class,'edit'])->name('solicitud.edit');
-Route::put('solicitud/{codigo}/{idmateria}/{idconvocatoria}', [SolicitudController::class,'update'])->name('solicitud.update');
-Route::get('pagina',[PaginaController::class,'index'])->name('pagina.index');
-Route::get('materiaofertada' , [MateriaofertadaController::class, 'index'])->name('materiaofertada.index');
-Route::get('materia/{idmateria}/{idconvocatoria}',[MateriaofertadaController::class , 'edit'])->name('materiaofertada.edit');
-Route::resource('usuario', UsuarioController::class);
-Route::resource('examen' , ExamenController::class);
-Route::resource('cronograma', CronogramaController::class);
+
 
 
 
@@ -67,8 +53,25 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::middleware(['auth'])->group(function () {
 
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('admin')->group(function () {
+        Route::resource('periodo', PeriodoController::class);
+        Route::resource('convocatoria', ConvocatoriaController::class);
+        Route::resource('cronograma', CronogramaController::class );
+        Route::resource('actividad', ActividadController::class);
+        Route::resource('grupo',GrupoController::class);
+        Route::resource('materia',MateriaController::class);
+        Route::resource('solicitud',SolicitudController::class,['only'=>['index','create','store']]);
+        Route::get('solicitud/{codigo}/{idmateria}/{idconvocatoria}', [SolicitudController::class,'edit'])->name('solicitud.edit');
+        Route::put('solicitud/{codigo}/{idmateria}/{idconvocatoria}', [SolicitudController::class,'update'])->name('solicitud.update');
+        Route::get('pagina',[PaginaController::class,'index'])->name('pagina.index');
+        Route::get('materiaofertada' , [MateriaofertadaController::class, 'index'])->name('materiaofertada.index');
+        Route::get('materia/{idmateria}/{idconvocatoria}',[MateriaofertadaController::class , 'edit'])->name('materiaofertada.edit');
+        Route::resource('usuario', UsuarioController::class);
+        Route::resource('examen' , ExamenController::class);
+        Route::resource('cronograma', CronogramaController::class);
+    });
 
     // Estudiante
     Route::get('/estudiante', [PeriodoController::class, 'eListPeriodo'])->name('estudiante');
@@ -98,6 +101,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('admin');
 
 });
+
     Route::get('/estudiante', function () {return view('estudiante.main');})->name('estudiante');
     Route::get('/admin', function () {return view('admin.main');})->name('admin');
 Route::get('/docente', function () {return view('docente.main');})->name('docente');

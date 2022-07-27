@@ -12,7 +12,7 @@
 
 <body>
 
-    <div class="flex items-center justify-center h-screen bg-gray-100">
+    <div class="flex items-center justify-center h-screen">
         <form method="POST" action="{{ route('authenticate') }}">
             @csrf
             <div class="bg-white w-96 p-6 rounded shadow-sm">
@@ -41,8 +41,8 @@
                         </div>
                     @enderror
                 </div>
-                <div class="my-4 form-control w-full max-w-xs my-2">
-                    <button class="w-full btn ">ingresar</button>
+                <div class="my-4 form-control w-full max-w-xs">
+                    <button class="w-full btn ">Ingresar</button>
                 </div>
             </div>
         </form>
