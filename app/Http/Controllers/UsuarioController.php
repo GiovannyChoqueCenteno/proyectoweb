@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\RolModel;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
@@ -41,7 +42,9 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         //
-        Usuario::create($request->all());
+        $usuario = $request->all();
+        $usuario['pass'] = Hash::make($request->get('pass'));
+        Usuario::create($usuario);
         return redirect()->route('usuario.index');
     
     }

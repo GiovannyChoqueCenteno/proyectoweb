@@ -24,6 +24,11 @@
 
         </div>
         <div class="form-control m-5">
+            <label class="label" >Contraseña</label>
+            <input type="password" id="pass" name="pass" placeholder="Contraseña del usuario" class="input outline outline-1">
+
+        </div>
+        <div class="form-control m-5">
             <label class="label" >Rol del usuario</label>
             <select class="select" name="idrol">
                 <option disabled selected>Seleccionar el rol del usuario</option>
