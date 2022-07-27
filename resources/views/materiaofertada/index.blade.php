@@ -10,7 +10,7 @@
                     <th>Nombre</th>
                     <th>Id de la convocatoria</th>
                     <th>Fecha de la convocatoria</th>
-                    <th>Acciones</th>
+                    <th>Estado del examen</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,7 +32,11 @@
                             {{$materiaofertada->fecha}}
                         </td>
                         <td>
-                            <a href="{{route('materiaofertada.edit',["idconvocatoria"=>$materiaofertada->idconvocatoria, "idmateria"=> $materiaofertada->idmateria])}}" class="btn btn-primary">Editar Examen</a>
+                            @if ($materiaofertada->asignado)
+                                Ya asignado
+                            @else
+                            <a href="{{route('materiaofertada.edit',["idconvocatoria"=>$materiaofertada->idconvocatoria, "idmateria"=> $materiaofertada->idmateria])}}" class="btn btn-primary">Asignar Examen</a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

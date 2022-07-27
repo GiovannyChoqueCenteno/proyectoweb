@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ExamenModel;
 use App\Models\MateriaModel;
 use App\Models\MateriaofertadaModel;
 use App\Models\PaginaModel;

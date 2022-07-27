@@ -40,11 +40,14 @@ class ExamenController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // $examen  = $request->all();
-        // ExamenModel::update($examen)->where('idmateria',$examen->idmateria)->where('');
-        // return redirect()->route('materiaofertada.index');
-
+        
+        $examen  = $request->all();
+        ExamenModel::create($examen);
+        DB::table('materiaofertada')
+        ->where('idmateria', $request->idmateria)
+        ->where('idconvocatoria', $request->idconvocatoria)
+        ->update(array('asignado' => 1));  
+        return redirect()->route('materiaofertada.index');
     }
 
     /**

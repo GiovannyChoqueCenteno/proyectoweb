@@ -8,24 +8,34 @@
             class="z-10 sidebar fixed top-0 bottom-0  left-[-300px] duration-1000
         p-2 w-[300px] overflow-y-auto text-center bg-neutral shadow h-screen">
 
-            <div class="text-gray-100 text-xl">
+            <div class="text-primary text-xl">
 
                 <div class="p-2.5 mt-1 flex  justify-between rounded-md text-start">
-                    <h1 class="text-[15px]  ml-3 text-xl text-gray-200 font-bold">Usuario: Admin</h1>
+                    <h1 class="text-[15px]  ml-3 text-xl  font-bold">Usuario: Admin</h1>
                     <i class="d-block bi bi-x ml-20 cursor-pointer  " onclick="Openbar()"></i>
                 </div>
 
-                <hr class="my-2 text-gray-600">
+                <hr class="my-2 ">
+                
                 <div class="flex justify-start">
-                        <a href="{{route('usuario.index')}}"
-                            class="p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-primary">
-                            <i class="bi bi-house-door-fill"></i>
-                            <small class="ml-2">Usuarios</small>
-                        </a>
-    
-                        <hr class="my-4 text-gray-600">
-    
-                </div>    
+                    
+                    <div class="dropdown">
+                        <i class="bi bi-calendar"></i>
+                        <label tabindex="0" class="btn m-1">Gestionar Usuarios
+                            <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </label>
+                        <ul tabindex="0"
+                            class="dropdown-content menu p-2 right-0 shadow bg-base-100 rounded-box w-full">
+                            <li><a href="{{route('usuario.index')}}"> Usuarios</a></li>
+
+                        </ul>
+                    </div>
+
+                </div>
                 <div class="flex justify-start">
                     
                     <div class="dropdown">

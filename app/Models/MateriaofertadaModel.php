@@ -10,7 +10,7 @@ class MateriaofertadaModel extends Model
     use HasFactory;
     protected $table = 'materiaofertada';
     //protected $primaryKey = ['idmateria','idconvocatoria'];
-    protected $fillable = ['idmateria' ,'idconvocatoria'];
+    protected $fillable = ['idmateria' ,'idconvocatoria','asignado'];
     public $timestamps = false;
 
 }
