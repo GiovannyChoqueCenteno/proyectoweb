@@ -18,7 +18,7 @@
 
                 <div>
 
-                    <a href="/estudiante"
+                    <a href="{{route('estudiante')}}"
                         class="p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-primary">
                         <i class="bi bi-house-door-fill"></i>
                         <small class="ml-2">Home</small>
@@ -26,7 +26,7 @@
 
                     <hr class="my-4 text-gray-600">
 
-                    <a href="/emateriaspostuladas"
+                    <a href="{{route('emateria.postulada')}}"
                         class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-primary">
                         <i class="bi bi-box-arrow-in-right"></i>
                         <small class="ml-2">Materias Postuladas</small>

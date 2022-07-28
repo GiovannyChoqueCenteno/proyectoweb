@@ -19,7 +19,7 @@
 
                 <div>
 
-                    <a href="/docente"
+                    <a href="{{route('docente')}}"
                         class="p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer  hover:bg-primary">
                         <i class="bi bi-house-door-fill"></i>
                         <small class="ml-2">Home</small>
