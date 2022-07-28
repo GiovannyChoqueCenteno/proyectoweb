@@ -81,6 +81,9 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::get('pagina', [PaginaController::class, 'index'])->name('pagina.index');
 
+    Route::get('/create/auxiliar', [EstudianteController::class, 'createaux'])->name('create.auxiliar');
+    Route::post('/save/auxiliar', [EstudianteController::class, 'saveaux'])->name('save.auxiliar');
+
     // Estudiante
     Route::get('/estudiante', [PeriodoController::class, 'eListPeriodo'])->name('estudiante');
     Route::get('/econvocatoria/{id}', [ConvocatoriaController::class, 'egetConvocatoriaByPeriodo'])->name('econvocatoria.list');
@@ -103,6 +106,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/examen/create/nota', [ExamenController::class, 'ecreateNota'])->name('examen.create.nota');
     Route::post('/examen/update/nota', [ExamenController::class, 'eUpdaeNota'])->name('examen.update.nota');
     Route::get('/docente/auxiliares/materia', [DocenteController::class, 'misAuxiliares'])->name('docente.auxiliar.materia');
+
 
     // Admin
     Route::get('/admin', function () {
