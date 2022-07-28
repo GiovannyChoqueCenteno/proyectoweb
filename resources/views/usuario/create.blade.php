@@ -61,7 +61,7 @@
         </div>
         
         <button class="btn btn-primary" type="submit">Guardar</button>
-        <a href="{{route('cronograma.index')}}" class="btn btn-warning">Volver a la lista</a>
+        <a href="{{route('usuario.index')}}" class="btn btn-warning">Volver a la lista</a>
     </form>
 </main>
 @endsection

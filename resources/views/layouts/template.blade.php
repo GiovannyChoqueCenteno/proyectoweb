@@ -67,18 +67,13 @@
 
                         <ul tabindex="0"
                             class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-                            <li>
-                                <a class="justify-between text-start">
-                                    Profile
-                                    <span class="badge">New</span>
-                                </a>
-                            </li>
+                            
                             {{-- <li><a>Settings</a></li> --}}
                             {{-- <li><a h>Logout</a></li> --}}
                             <li>
                                 <form method="POST" action="{{ route('logout') }}" class="p-0">
                                     @csrf
-                                    <button class="text-start p-2 pl-4 w-full">logout</button>
+                                    <button class="text-start p-2 pl-4 w-full">Cerrar Sesion</button>
                                 </form>
                             </li>
                         </ul>

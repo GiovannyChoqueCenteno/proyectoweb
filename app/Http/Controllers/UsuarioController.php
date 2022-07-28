@@ -34,7 +34,7 @@ class UsuarioController extends Controller
     public function create()
     {
         //
-        $roles = RolModel::all();
+        $roles = RolModel::where('id','!=',1)->get();
         return view('usuario.create',compact('roles'));
     }
 
