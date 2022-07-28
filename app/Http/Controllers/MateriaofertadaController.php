@@ -20,7 +20,7 @@ class MateriaofertadaController extends Controller
     {
         //
         $materiaofertadas = MateriaofertadaModel::select('materiaofertada.*' , 'materia.nombre' ,'convocatoria.fecha')->join('materia','idmateria','=','materia.id')
-        ->join('convocatoria','idconvocatoria','=','convocatoria.id')->orderBy('fecha','desc')->paginate(7)  ;
+        ->join('convocatoria','idconvocatoria','=','convocatoria.id')->orderBy('idconvocatoria','desc')->paginate(10)  ;
         $pagina = PaginaModel::find(6);
         $pagina->visitas++;
         $pagina->save();

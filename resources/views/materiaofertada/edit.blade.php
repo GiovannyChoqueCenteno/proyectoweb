@@ -32,7 +32,7 @@
             <select class="select"  name="codigo">
                 <option disabled selected>Seleccionar el docente</option>
                 @foreach ($docentes as $docente)
-                <option value="{{$docente->codigo}}"> {{$docente->nombre}}</option>                    
+                <option value="{{$docente->codigo}}"> {{$docente->nombre.' '.$docente->apellido}}</option>                    
                 @endforeach
               </select>
         </div>
