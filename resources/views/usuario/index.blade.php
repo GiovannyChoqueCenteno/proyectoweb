@@ -35,7 +35,11 @@
                             {{$usuario->idrol}}
                         </td>
                         <td>
-                            <a href="" class="btn btn-secondary">Editar</a>
+                            @if($usuario->idrol==1)
+                            No permitido
+                            @else
+                            <a href="{{route('usuario.edit', $usuario->codigo)}}" class="btn btn-secondary">Editar</a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

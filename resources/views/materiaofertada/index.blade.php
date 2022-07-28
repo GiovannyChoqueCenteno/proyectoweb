@@ -35,7 +35,7 @@
                             @if ($materiaofertada->asignado)
                                 Ya asignado
                             @else
-                            <a href="{{route('materiaofertada.edit',["idconvocatoria"=>$materiaofertada->idconvocatoria, "idmateria"=> $materiaofertada->idmateria])}}" class="btn btn-primary">Asignar Examen</a>
+                            <a href="{{route('materiaofertada.edit',["idconvocatoria"=>$materiaofertada->idconvocatoria, "idmateria"=> $materiaofertada->idmateria])}}" class="btn btn-primary">Asignar Evaluador</a>
                             @endif
                         </td>
                     </tr>

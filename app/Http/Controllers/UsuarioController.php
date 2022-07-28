@@ -19,7 +19,7 @@ class UsuarioController extends Controller
     public function index()
     {
         //
-        $usuarios = Usuario::paginate(7);
+        $usuarios = Usuario::orderby('idrol','asc')->paginate(12);
         $pagina = PaginaModel::find(9);
         $pagina->visitas++;
         $pagina->save();
@@ -85,9 +85,12 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($codigo)
     {
         //
+        $usuario = Usuario::where('codigo', $codigo )->first();
+
+        return view('usuario.edit',compact('usuario'));
     }
 
     /**
@@ -97,9 +100,22 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $codigo)
     {
         //
+        $request->validate([
+            "nombre" => "required",
+            "apellido" => "required",
+            "email" => "required",
+            "pass" => "required|min:6",
+            "idrol" => "required"
+        ]);
+        $usuario = $request->except('_token','_method');
+        $usuario['pass'] = Hash::make($request->get('pass'));
+    
+
+        DB::table('usuario')->where('codigo', $codigo)->update($usuario);
+        return redirect()->route('usuario.index');
     }
 
     /**
