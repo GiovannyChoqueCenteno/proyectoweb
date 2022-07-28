@@ -126,4 +126,20 @@ class DocenteController extends Controller
 
         return view('docente.misauxiliares')->with('auxiliares', $auxiliares);
     }
+
+    public function getMateriaDocente()
+    {
+        $docentesmaterias = DB::table('docentemateriagrupo')
+            ->join('usuario', 'docentemateriagrupo.codigo', 'usuario.codigo')
+            ->join('materiagrupo', function ($join) {
+                $join->on('materiagrupo.idmateria', '=', 'docentemateriagrupo.idmateria');
+                $join->on('materiagrupo.idgrupo', '=', 'docentemateriagrupo.idgrupo');
+            })
+            ->join('materia', 'materiagrupo.idmateria', 'materia.id')
+            ->join('grupo', 'materiagrupo.idgrupo', 'grupo.id')
+            ->select('usuario.*', 'materiagrupo.*', 'materia.nombre as materia', 'grupo.nombre as grupo')
+            ->get();
+
+        return view('materia.docentemateria')->with('docentesmaterias', $docentesmaterias);
+    }
 }

@@ -71,7 +71,14 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('usuario', UsuarioController::class);
         Route::resource('examen', ExamenController::class);
         Route::resource('cronograma', CronogramaController::class);
+
         Route::get('visitas', [AuthController::class, 'graph'])->name('graph.visitas');
+        Route::get('docente/materia', [DocenteController::class, 'getMateriaDocente'])->name('materia.docente');
+        Route::get('materia/auxiliar/{idmat}/{idgrup}/{codigod}', [EstudianteController::class, 'asignarauxiliar'])->name('asignar.auxiliar');
+        Route::post('materia/auxiliar/save', [EstudianteController::class, 'saveAsingacionAuxiliar'])->name('save.asignacion.auxiliar');
+        Route::get('eauxiliares', [EstudianteController::class, 'getauxiliares'])->name('auxiliares');
+        Route::get('solicitud/form/response/{codigoe}/{idmat}/{idconv}', [SolicitudController::class, 'formsolres'])->name('solicitud.form.resp');
+        Route::post('solicitud/form/response',[SolicitudController::class,'eupdateSolicitud'])->name('solicitud.form.update');
     });
 
     // Estudiante
@@ -84,6 +91,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/eexamen/detalle/{idmat}/{idconv}', [ExamenController::class, 'infoExamen'])->name('eexamen.detalle');
     Route::get('/eexamen/nota/{idmat}/{idconv}', [ExamenController::class, 'notaExamen'])->name('eexamen.nota');
     Route::get('/eauxiliar/materia/{idperiodo}', [EstudianteController::class, 'elistAuxiliaresPeriodo'])->name('eauxiliar.listar');
+
 
 
     // Docente
@@ -105,5 +113,3 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['guest'])->group(function () {
     Route::get('login', [AuthController::class, 'login'])->name('login');
 });
-
-

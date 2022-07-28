@@ -23,9 +23,8 @@ class SolicitudController extends Controller
     public function index()
     {
         //
-        $solicitudes = SolicitudModel::select('solicitud.*' , 'materia.nombre')->join('materia','idmateria','=','materia.id')->paginate(7)  ;
-        return view('solicitud.index',compact('solicitudes'));
-
+        $solicitudes = SolicitudModel::select('solicitud.*', 'materia.nombre')->join('materia', 'idmateria', '=', 'materia.id')->paginate(7);
+        return view('solicitud.index', compact('solicitudes'));
     }
 
     /**
@@ -37,11 +36,10 @@ class SolicitudController extends Controller
     {
         //
 
-        $estudiantes = Usuario::where('rolid',3)->get();
+        $estudiantes = Usuario::where('rolid', 3)->get();
         $convocatorias = ConvocatoriaModel::all();
         $materias  = MateriaModel::all();
-        return view('solicitud.create',compact('estudiantes','convocatorias','materias'));
-
+        return view('solicitud.create', compact('estudiantes', 'convocatorias', 'materias'));
     }
 
     /**
@@ -72,11 +70,11 @@ class SolicitudController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($codigo,$idmateria,$idconvocatoria)
+    public function edit($codigo, $idmateria, $idconvocatoria)
     {
         //
-        $solicitud = SolicitudModel::where('codigo',$codigo)->where('idmateria',$idmateria)->where('idconvocatoria',$idconvocatoria)->first();
-        return view('solicitud.edit',compact('solicitud'));
+        $solicitud = SolicitudModel::where('codigo', $codigo)->where('idmateria', $idmateria)->where('idconvocatoria', $idconvocatoria)->first();
+        return view('solicitud.edit', compact('solicitud'));
     }
     /**
      * Update the specified resource in storage.
@@ -86,14 +84,14 @@ class SolicitudController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function update(Request $request , $codigo,$idmateria,$idconvocatoria)
+    public function update(Request $request, $codigo, $idmateria, $idconvocatoria)
     {
         //
-        $solicitudUpdate = $request->except('_token','_method');
-        SolicitudModel::where('codigo',$codigo)->where('idmateria',$idmateria)->where('idconvocatoria',$idconvocatoria)->update($solicitudUpdate);
+        $solicitudUpdate = $request->except('_token', '_method');
+        SolicitudModel::where('codigo', $codigo)->where('idmateria', $idmateria)->where('idconvocatoria', $idconvocatoria)->update($solicitudUpdate);
         return redirect()->route('solicitud.index');
     }
-  
+
 
     /**
      * Remove the specified resource from storage.
@@ -157,4 +155,55 @@ class SolicitudController extends Controller
             ->with('idconvocatoria', $idconv);
     }
 
+    public function formsolres($codigoe, $idmat, $idconv)
+    {
+        $solicitud = DB::table('solicitud')
+            ->where('codigo', $codigoe)
+            ->where('idmateria', $idmat)
+            ->where('idconvocatoria', $idconv)
+            ->first();
+        return view('solicitud.FormRespSolicitud')->with('solicitud', $solicitud);
+    }
+
+    public function eupdateSolicitud(Request $request)
+    {
+        $codigoe = $request->input('codigoe');
+        $idmateria = $request->input('idmateria');
+        $idconvocatoria = $request->input('idconvocatoria');
+        $aceptado = $request->input('estado');
+        $notaacumulada = $request->input('notaacumulada');
+        
+        if ($aceptado == "-1") {
+            $aceptado = null;
+        }
+
+        $notaexamen = $this->getNota($codigoe, $idmateria, $idconvocatoria);
+
+        SolicitudModel::where('codigo', $codigoe)
+            ->where('idmateria', $idmateria)
+            ->where('idconvocatoria', $idconvocatoria)
+            ->update([
+                'aceptado' => $aceptado,
+                'notaacumulada' => $notaacumulada,
+                'notafinal' => +$notaexamen + $notaacumulada
+            ]);
+
+        return redirect()->route('convocatoria.show', [
+            'convocatorium' => $idconvocatoria
+        ])->with('info', "La solicitud se actualizo correctamente !!!");
+    }
+
+    public function getNota($codigoe, $idmateria, $idconvocatoria)
+    {
+        $nota = DB::table('nota')
+            ->where('idmateria', $idmateria)
+            ->where('idconvocatoria', $idconvocatoria)
+            ->where('codigoestudiante', $codigoe)
+            ->first();
+
+        if (is_null($nota)) {
+            return 0;
+        }
+        return $nota->notafinal;
+    }
 }
