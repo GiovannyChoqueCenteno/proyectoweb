@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PaginaModel;
 use App\Models\RolModel;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
@@ -18,7 +19,10 @@ class UsuarioController extends Controller
     {
         //
         $usuarios = Usuario::paginate(7);
-        return view('usuario.index',compact('usuarios'));
+        $pagina = PaginaModel::find(9);
+        $pagina->visitas++;
+        $pagina->save();
+        return view('usuario.index',compact('usuarios','pagina'));
     }
 
     /**
@@ -42,6 +46,14 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            "codigo" => "required|unique:usuario,codigo",
+            "nombre" => "required",
+            "apellido" => "required",
+            "email" => "required|unique:usuario,email",
+            "pass" => "required|min:6",
+            "idrol" => "required"
+        ]);
         $usuario = $request->all();
         $usuario['pass'] = Hash::make($request->get('pass'));
         Usuario::create($usuario);

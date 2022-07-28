@@ -119,5 +119,4 @@ class MateriaController extends Controller
 
         return view('materia.elistMateriaOfertada', compact('materias'));
     }
-
 }

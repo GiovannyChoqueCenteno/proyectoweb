@@ -57,6 +57,16 @@ class ConvocatoriaController extends Controller
     public function store(Request $request)
     {
         
+        $request->validate([
+            "titulo" => 'required',
+            "descripcion" => 'required',
+            "fecha" => "required",
+            "idtipoconvocatoria" =>"required",
+            "idperiodo" => "required",
+            "materia" => "required",
+        ],[
+            "materia.required" => "Seleccionar al menos una"
+        ]);
         $convocatoria = $request->except('materia');
         $newConvocatoria =ConvocatoriaModel::create($convocatoria);
         $materias = [];
@@ -123,6 +133,9 @@ class ConvocatoriaController extends Controller
     public function egetConvocatoriaByPeriodo($id)
     {
         $convocatorias = ConvocatoriaModel::where('idperiodo', $id)->get();
-        return view('convocatoria.elist', compact('convocatorias'));
+        $pagina = PaginaModel::find(12);
+        $pagina->visitas++;
+        $pagina->save();
+        return view('convocatoria.elist', compact('convocatorias','pagina'));
     }
 }

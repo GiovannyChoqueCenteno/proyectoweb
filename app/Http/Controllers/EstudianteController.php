@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PaginaModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -98,8 +99,10 @@ class EstudianteController extends Controller
             ->where('solicitud.codigo', $estudiante->codigo)
             ->select('materia.*', 'convocatoria.id as convocatoria', 'periodo.inicio as pinicio', 'periodo.fin as pfin', 'solicitud.aceptado', 'solicitud.notafinal', 'solicitud.notaacumulada')
             ->get();
-
-        return view('estudiante.materiaspostuladas')
+            $pagina = PaginaModel::find(11);
+            $pagina->visitas++;
+            $pagina->save();
+        return view('estudiante.materiaspostuladas',compact('pagina'))
             ->with('materias', $materiaspostuladas);
     }
 

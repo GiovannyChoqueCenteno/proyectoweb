@@ -102,9 +102,7 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-    Route::get('/estudiante', function () {return view('estudiante.main');})->name('estudiante');
-    Route::get('/admin', function () {return view('admin.main');})->name('admin');
-Route::get('/docente', function () {return view('docente.main');})->name('docente');
+
 Route::middleware(['guest'])->group(function () {
     Route::get('login', [AuthController::class, 'login'])->name('login');
 });

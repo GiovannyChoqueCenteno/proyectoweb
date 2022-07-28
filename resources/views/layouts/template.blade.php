@@ -49,9 +49,10 @@
 
                     <div class="dropdown dropdown-end mx-3">
                         <select class="select" data-choose-theme>
-                            <option value="light">Default</option>
-                            <option value="dark">Dark</option>
-                            <option value="retro">Retro</option>
+                            <option value="light">Claro</option>
+                            <option value="dark">Oscuro</option>
+                            <option value="retro">Adolescente</option>
+                            <option value="synthwave">Niño</option>
                         </select>
                     </div>
 
@@ -99,11 +100,16 @@
         @endif
         @yield('content')
     </div>
-    {{-- <footer class="footer footer-center p-4 bg-base-300 text-base-content">
+    @if (!isset($pagina))
+    
+    @else
+    <footer class="footer footer-center p-4 bg-base-300 text-base-content">
         <div>
             <h5> Total de vistas : {{$pagina->visitas}}</h5>
         </div>    
-      </footer> --}}
+      </footer>
+      @endif
+
       <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
 </body>
 

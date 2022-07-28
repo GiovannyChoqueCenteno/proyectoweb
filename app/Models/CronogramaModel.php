@@ -10,4 +10,5 @@ class CronogramaModel extends Model
     use HasFactory;
     protected $table = 'cronograma';
     protected $fillable = ['fecha' , 'idperiodo'];
+    public $timestamps = false;
 }

@@ -45,6 +45,11 @@ class ActividadController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            "nombre" => "required",
+            "fecha" => "required",
+            "idcronograma" => "required",
+        ]);
         ActividadModel::create($request->all());
         return redirect()->route('actividad.index');
         }

@@ -8,7 +8,7 @@
             class="z-10 sidebar fixed top-0 bottom-0  left-[-300px] duration-1000
         p-2 w-[300px] overflow-y-auto text-center bg-neutral shadow h-screen">
 
-            <div class="text-primary text-xl">
+            <div class=" text-xl">
 
                 <div class="p-2.5 mt-1 flex  justify-between rounded-md text-start">
                     <h1 class="text-[15px]  ml-3 text-xl  font-bold">Usuario: Admin</h1>

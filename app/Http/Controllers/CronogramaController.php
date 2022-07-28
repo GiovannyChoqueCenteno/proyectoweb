@@ -35,12 +35,11 @@ class CronogramaController extends Controller
     {
         //
 
-        $tipoconvocatorias = TipoconvocatoriaModel::all();
         $periodos = PeriodoModel::all();
         $pagina = PaginaModel::find(7);
         $pagina->visitas++;
         $pagina->save();
-        return view('cronograma.create',compact('tipoconvocatorias','periodos','pagina'));
+        return view('cronograma.create',compact('periodos','pagina'));
     }
 
     /**
@@ -52,6 +51,12 @@ class CronogramaController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            "fecha" => "required",
+            "idperiodo" => "required",
+        ]);
+        CronogramaModel::create($request->all());
+        return redirect()->route('cronograma.index');
     }
 
     /**

@@ -17,6 +17,7 @@ class PeriodoController extends Controller
     public function index()
     {
         //
+        
         $periodos = PeriodoModel::all();
         $pagina =PaginaModel::find(1);
         $pagina->visitas++;
@@ -102,7 +103,11 @@ class PeriodoController extends Controller
     }
 
     public function eListPeriodo(){
+        
         $periodos = PeriodoModel::all();
-        return view('periodo.elist', compact('periodos'));
+        $pagina = PaginaModel::find(10);
+        $pagina->visitas++;
+        $pagina->save();
+        return view('periodo.elist', compact('periodos' , 'pagina'));
     }
 }
