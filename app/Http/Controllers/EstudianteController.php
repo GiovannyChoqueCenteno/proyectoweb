@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AuxiliarModel;
 use App\Models\PaginaModel;
 use App\Models\DocenteMateriaGrupoPeriodoModel;
 
@@ -102,10 +103,10 @@ class EstudianteController extends Controller
             ->where('solicitud.codigo', $estudiante->codigo)
             ->select('materia.*', 'convocatoria.id as convocatoria', 'periodo.inicio as pinicio', 'periodo.fin as pfin', 'solicitud.aceptado', 'solicitud.notafinal', 'solicitud.notaacumulada')
             ->get();
-            $pagina = PaginaModel::find(11);
-            $pagina->visitas++;
-            $pagina->save();
-        return view('estudiante.materiaspostuladas',compact('pagina'))
+        $pagina = PaginaModel::find(11);
+        $pagina->visitas++;
+        $pagina->save();
+        return view('estudiante.materiaspostuladas', compact('pagina'))
             ->with('materias', $materiaspostuladas);
     }
 
@@ -200,6 +201,25 @@ class EstudianteController extends Controller
         $pagina = PaginaModel::find(13);
         $pagina->visitas++;
         $pagina->save();
-        return view('estudiante.auxiliares',compact('pagina'))->with('auxiliares', $auxiliares);
+        return view('estudiante.auxiliares', compact('pagina'))->with('auxiliares', $auxiliares);
+    }
+
+    public function createaux()
+    {
+        $estudiantes = DB::table('usuario')->where('idrol', 3)->get();
+        return view('estudiante.createAuxiliar')->with('estudiantes', $estudiantes);
+    }
+
+    public function saveaux(Request $request)
+    {
+        $codigoe = $request->input('codigoe');
+        $exist = DB::table('auxiliar')->where('codigo', $codigoe)->first();
+        if (!is_null($exist)) {
+            return redirect()->route('create.auxiliar')->with('info', 'el estudiante ya es auxiliar!!!');
+        }
+        AuxiliarModel::create([
+            'codigo' => $codigoe
+        ]);
+        return redirect()->route('create.auxiliar')->with('info', 'el auxiliar se creo correctamente!!!');
     }
 }
