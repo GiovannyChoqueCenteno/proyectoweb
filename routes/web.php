@@ -78,8 +78,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('eauxiliares', [EstudianteController::class, 'getauxiliares'])->name('auxiliares');
         Route::get('solicitud/form/response/{codigoe}/{idmat}/{idconv}', [SolicitudController::class, 'formsolres'])->name('solicitud.form.resp');
         Route::post('solicitud/form/response', [SolicitudController::class, 'eupdateSolicitud'])->name('solicitud.form.update');
-        Route::get('pagina', [PaginaController::class, 'index'])->name('pagina.index');
     });
+    Route::get('pagina', [PaginaController::class, 'index'])->name('pagina.index');
 
     // Estudiante
     Route::get('/estudiante', [PeriodoController::class, 'eListPeriodo'])->name('estudiante');
