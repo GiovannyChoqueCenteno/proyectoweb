@@ -132,7 +132,7 @@ class ExamenController extends Controller
             ->where('idconvocatoria', $idconv)
             ->first();
 
-        return view('examen.eaddinfo')
+        return view('examen.eaddInfo')
             ->with('examen', $examen)
             ->with('idmateria', $idmat)
             ->with('idconvocatoria', $idconv);
