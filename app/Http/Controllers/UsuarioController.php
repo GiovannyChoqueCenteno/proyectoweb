@@ -6,6 +6,7 @@ use App\Models\PaginaModel;
 use App\Models\RolModel;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
@@ -57,6 +58,12 @@ class UsuarioController extends Controller
         $usuario = $request->all();
         $usuario['pass'] = Hash::make($request->get('pass'));
         Usuario::create($usuario);
+        if($usuario['idrol'] ==2){
+            DB::table('docente')->insert(array('codigo'=>$usuario['codigo']));
+        }
+        if($usuario['idrol'] ==3){
+            DB::table('estudiante')->insert(array('codigo'=>$usuario['codigo']));
+        }
         return redirect()->route('usuario.index');
     
     }

@@ -32,9 +32,9 @@
 
                 <form method="POST" action="{{ route($route) }}">
 
-                    <input type="hidden" name="idmateria" value="{{ $nota->idmateria }}" />
-                    <input type="hidden" name="idconvocatoria" value="{{ $nota->idconvocatoria }}" />
-                    <input type="hidden" name="codigoestudiante" value="{{ $nota->codigoestudiante }}" />
+                    <input type="hidden" name="idmateria" value="{{ $idmateria }}" />
+                    <input type="hidden" name="idconvocatoria" value="{{ $idconvocatoria }}" />
+                    <input type="hidden" name="codigoestudiante" value="{{ $codigoe }}" />
 
                     @csrf
                     <div class="my-1">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PaginaModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -99,8 +100,10 @@ class DocenteController extends Controller
             ->where('docente.codigo', $docente->codigo)
             ->select('materia.*', 'convocatoria.id as convocatoria', 'periodo.inicio as pinicio', 'periodo.fin as pfin')
             ->get();
-
-        return view('materia.elistmateriaAsignadas')->with('materias', $materiasasignadas);
+            $pagina = PaginaModel::find(15);
+            $pagina->visitas++;
+            $pagina->save();
+        return view('materia.elistmateriaAsignadas',compact('pagina'))->with('materias', $materiasasignadas);
     }
 
     public function misAuxiliares()
@@ -121,9 +124,27 @@ class DocenteController extends Controller
             ->join('materia', 'materiagrupo.idmateria', 'materia.id')
             ->join('grupo', 'materiagrupo.idgrupo', 'grupo.id')
             ->where('docentemateriagrupoperiodo.codigo', $docente->codigo)
-            ->select('materia.nombre as materia', 'grupo.nombre as grupo', 'usuario.*','periodo.inicio as pinicio','periodo.fin as pfin')
+            ->select('materia.nombre as materia', 'grupo.nombre as grupo', 'usuario.*', 'periodo.inicio as pinicio', 'periodo.fin as pfin')
+            ->get();
+            $pagina = PaginaModel::find(16);
+            $pagina->visitas++;
+            $pagina->save();
+        return view('docente.misauxiliares' ,compact('pagina'))->with('auxiliares', $auxiliares);
+    }
+
+    public function getMateriaDocente()
+    {
+        $docentesmaterias = DB::table('docentemateriagrupo')
+            ->join('usuario', 'docentemateriagrupo.codigo', 'usuario.codigo')
+            ->join('materiagrupo', function ($join) {
+                $join->on('materiagrupo.idmateria', '=', 'docentemateriagrupo.idmateria');
+                $join->on('materiagrupo.idgrupo', '=', 'docentemateriagrupo.idgrupo');
+            })
+            ->join('materia', 'materiagrupo.idmateria', 'materia.id')
+            ->join('grupo', 'materiagrupo.idgrupo', 'grupo.id')
+            ->select('usuario.*', 'materiagrupo.*', 'materia.nombre as materia', 'grupo.nombre as grupo')
             ->get();
 
-        return view('docente.misauxiliares')->with('auxiliares',$auxiliares);
+        return view('materia.docentemateria')->with('docentesmaterias', $docentesmaterias);
     }
 }

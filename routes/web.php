@@ -58,20 +58,28 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::resource('periodo', PeriodoController::class);
         Route::resource('convocatoria', ConvocatoriaController::class);
-        Route::resource('cronograma', CronogramaController::class );
-        Route::resource('actividad', ActividadController::class);
-        Route::resource('grupo',GrupoController::class);
-        Route::resource('materia',MateriaController::class);
-        Route::resource('solicitud',SolicitudController::class,['only'=>['index','create','store']]);
-        Route::get('solicitud/{codigo}/{idmateria}/{idconvocatoria}', [SolicitudController::class,'edit'])->name('solicitud.edit');
-        Route::put('solicitud/{codigo}/{idmateria}/{idconvocatoria}', [SolicitudController::class,'update'])->name('solicitud.update');
-        Route::get('pagina',[PaginaController::class,'index'])->name('pagina.index');
-        Route::get('materiaofertada' , [MateriaofertadaController::class, 'index'])->name('materiaofertada.index');
-        Route::get('materia/{idmateria}/{idconvocatoria}',[MateriaofertadaController::class , 'edit'])->name('materiaofertada.edit');
-        Route::resource('usuario', UsuarioController::class);
-        Route::resource('examen' , ExamenController::class);
         Route::resource('cronograma', CronogramaController::class);
+        Route::resource('actividad', ActividadController::class);
+        Route::resource('grupo', GrupoController::class);
+        Route::resource('materia', MateriaController::class);
+        Route::resource('solicitud', SolicitudController::class, ['only' => ['index', 'create', 'store']]);
+        Route::get('solicitud/{codigo}/{idmateria}/{idconvocatoria}', [SolicitudController::class, 'edit'])->name('solicitud.edit');
+        Route::put('solicitud/{codigo}/{idmateria}/{idconvocatoria}', [SolicitudController::class, 'update'])->name('solicitud.update');
+        Route::get('materiaofertada', [MateriaofertadaController::class, 'index'])->name('materiaofertada.index');
+        Route::get('materia/{idmateria}/{idconvocatoria}', [MateriaofertadaController::class, 'edit'])->name('materiaofertada.edit');
+        Route::resource('usuario', UsuarioController::class);
+        Route::resource('examen', ExamenController::class);
+        Route::resource('cronograma', CronogramaController::class);
+
+        Route::get('visitas', [AuthController::class, 'graph'])->name('graph.visitas');
+        Route::get('docente/materia', [DocenteController::class, 'getMateriaDocente'])->name('materia.docente');
+        Route::get('materia/auxiliar/{idmat}/{idgrup}/{codigod}', [EstudianteController::class, 'asignarauxiliar'])->name('asignar.auxiliar');
+        Route::post('materia/auxiliar/save', [EstudianteController::class, 'saveAsingacionAuxiliar'])->name('save.asignacion.auxiliar');
+        Route::get('eauxiliares', [EstudianteController::class, 'getauxiliares'])->name('auxiliares');
+        Route::get('solicitud/form/response/{codigoe}/{idmat}/{idconv}', [SolicitudController::class, 'formsolres'])->name('solicitud.form.resp');
+        Route::post('solicitud/form/response',[SolicitudController::class,'eupdateSolicitud'])->name('solicitud.form.update');
     });
+    Route::get('pagina', [PaginaController::class, 'index'])->name('pagina.index');
 
     // Estudiante
     Route::get('/estudiante', [PeriodoController::class, 'eListPeriodo'])->name('estudiante');
@@ -83,6 +91,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/eexamen/detalle/{idmat}/{idconv}', [ExamenController::class, 'infoExamen'])->name('eexamen.detalle');
     Route::get('/eexamen/nota/{idmat}/{idconv}', [ExamenController::class, 'notaExamen'])->name('eexamen.nota');
     Route::get('/eauxiliar/materia/{idperiodo}', [EstudianteController::class, 'elistAuxiliaresPeriodo'])->name('eauxiliar.listar');
+
 
 
     // Docente
@@ -99,7 +108,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin', function () {
         return view('admin.main');
     })->name('admin');
-
 });
 
 

@@ -187,9 +187,15 @@ class ExamenController extends Controller
             ->first();
 
         $createnota = true;
-        if (!is_null($nota)) $createnota = false;
 
-        return view('examen.eaddNota')->with('nota', $nota)->with('createnota', $createnota);
+        
+        if (!is_null($nota)) $createnota = false;
+        return view('examen.eaddNota')
+        ->with('nota', $nota)
+        ->with('createnota', $createnota)
+        ->with('idmateria', $idmat)
+        ->with('idconvocatoria', $idconv)
+        ->with('codigoe', $codigoe);
     }
 
     public function ecreateNota(Request $request)

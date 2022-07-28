@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\PaginaModel;
+use App\Models\DocenteMateriaGrupoPeriodoModel;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class EstudianteController extends Controller
 {
@@ -126,5 +129,77 @@ class EstudianteController extends Controller
             ->get();
 
         return view('estudiante.elistaauxiliares')->with('auxiliares', $auxiliares);
+    }
+
+    public function asignarauxiliar($idmat, $idgrup, $codigod)
+    {
+        $periodos = DB::table('periodo')->orderByDesc('id')->limit(8)->get();
+
+        return view('estudiante.asignarauxiliar')
+            ->with('periodos', $periodos)
+            ->with('idmateria', $idmat)
+            ->with('idgrupo', $idgrup)
+            ->with('codigod', $codigod);
+    }
+
+    public function saveAsingacionAuxiliar(Request $request)
+    {
+        $codigod = $request->input('codigod');
+        $codigoa = $request->input('codigoa');
+        $idmateria = $request->input('idmateria');
+        $idgrupo = $request->input('idgrupo');
+        $idperiodo = $request->input('idperiodo');
+
+        $existeauxiliar = DB::table('auxiliar')->where('codigo', $codigoa)->first();
+
+        if (is_null($existeauxiliar)) {
+            return redirect()->route('asignar.auxiliar', [
+                'idmat' => $idmateria,
+                'idgrup' => $idgrupo,
+                'codigod' => $codigod
+            ])->with('info', 'codigo de auxiliar no valido!!!');
+        }
+
+        $asignado = DB::table('docentemateriagrupoperiodo')
+            ->where('codigo', $codigod)
+            ->where('idmateria', $idmateria)
+            ->where('idgrupo', $idgrupo)
+            ->where('idperiodo', $idperiodo)
+            ->first();
+
+        if (!is_null($asignado)) {
+            return redirect()->route('asignar.auxiliar', [
+                'idmat' => $idmateria,
+                'idgrup' => $idgrupo,
+                'codigod' => $codigod
+            ])->with('info', 'ya existen un auxiliar para esta materia grupo!!!');
+        }
+
+        DocenteMateriaGrupoPeriodoModel::create([
+            'codigo' => $codigod,
+            'idmateria' => $idmateria,
+            'idgrupo' => $idgrupo,
+            'idperiodo' => $idperiodo,
+            'codigoauxiliar' => $codigoa,
+        ]);
+
+
+        return redirect()->route('asignar.auxiliar', [
+            'idmat' => $idmateria,
+            'idgrup' => $idgrupo,
+            'codigod' => $codigod
+        ])->with('info', 'se asigno el auxiliar correctamente!!!');
+    }
+
+    public function getauxiliares()
+    {
+        $auxiliares = DB::table('auxiliar')
+            ->join('usuario', 'auxiliar.codigo', 'usuario.codigo')
+            ->select('usuario.*')
+            ->get();
+        $pagina = PaginaModel::find(13);
+        $pagina->visitas++;
+        $pagina->save();
+        return view('estudiante.auxiliares',compact('pagina'))->with('auxiliares', $auxiliares);
     }
 }

@@ -2513,6 +2513,12 @@ body[dir="rtl"] .checkbox:checked,
 .-ml-px {
   margin-left: -1px;
 }
+.mt-5 {
+  margin-top: 1.25rem;
+}
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
 .flex {
   display: flex;
 }
